@@ -24,6 +24,8 @@
 		F2FD8E5129E3E0A100670000 /* CustomModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD8E5029E3E0A100670000 /* CustomModal.swift */; };
 		F2FD8E5329E3F9B100670000 /* CustomField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD8E5229E3F9B100670000 /* CustomField.swift */; };
 		F2FD8E5629E4036700670000 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD8E5529E4036700670000 /* SignUpView.swift */; };
+		F2FD8E5D29E446B900670000 /* HomepageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD8E5C29E446B900670000 /* HomepageView.swift */; };
+		F2FD8E5F29E452A400670000 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD8E5E29E452A400670000 /* Avatar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		F2FD8E5029E3E0A100670000 /* CustomModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModal.swift; sourceTree = "<group>"; };
 		F2FD8E5229E3F9B100670000 /* CustomField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomField.swift; sourceTree = "<group>"; };
 		F2FD8E5529E4036700670000 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		F2FD8E5C29E446B900670000 /* HomepageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageView.swift; sourceTree = "<group>"; };
+		F2FD8E5E29E452A400670000 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +164,7 @@
 		F2FD332E29E259F600A7A40B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F2FD8E5B29E446A500670000 /* Homepage */,
 				F2FD8E5429E4033F00670000 /* SignUp */,
 				F2FD8E4429E3C8AC00670000 /* ForgotPassword */,
 				F2FD8E3E29E3A29200670000 /* Login */,
@@ -192,6 +197,7 @@
 				F2FD8E4229E3A4D300670000 /* CustomText.swift */,
 				F2FD8E5029E3E0A100670000 /* CustomModal.swift */,
 				F2FD8E5229E3F9B100670000 /* CustomField.swift */,
+				F2FD8E5E29E452A400670000 /* Avatar.swift */,
 			);
 			name = ReusableComponents;
 			sourceTree = "<group>";
@@ -227,6 +233,14 @@
 				F2FD8E5529E4036700670000 /* SignUpView.swift */,
 			);
 			name = SignUp;
+			sourceTree = "<group>";
+		};
+		F2FD8E5B29E446A500670000 /* Homepage */ = {
+			isa = PBXGroup;
+			children = (
+				F2FD8E5C29E446B900670000 /* HomepageView.swift */,
+			);
+			name = Homepage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,6 +376,8 @@
 				F2FD8E5329E3F9B100670000 /* CustomField.swift in Sources */,
 				F2FD8E4329E3A4D300670000 /* CustomText.swift in Sources */,
 				F2FD8E4029E3A2A900670000 /* LoginView.swift in Sources */,
+				F2FD8E5D29E446B900670000 /* HomepageView.swift in Sources */,
+				F2FD8E5F29E452A400670000 /* Avatar.swift in Sources */,
 				F2FD8E4629E3C8C000670000 /* ForgotPasswordView.swift in Sources */,
 				F2FD8E5629E4036700670000 /* SignUpView.swift in Sources */,
 				F2FD8E4C29E3D85700670000 /* String.swift in Sources */,

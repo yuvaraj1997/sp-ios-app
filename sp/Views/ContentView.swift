@@ -10,13 +10,18 @@ import SwiftUI
 struct ContentView: View {
     
     @State var getStartedClicked: Bool = false
+    @State var isAuthenticated: Bool = true
 
     
     var body: some View {
-        if !self.getStartedClicked {
-            GetStartedView(getStartedClicked: self.$getStartedClicked)
+        if self.isAuthenticated {
+            HomepageView()
         } else {
-            LoginView()
+            if !self.getStartedClicked {
+                GetStartedView(getStartedClicked: self.$getStartedClicked)
+            } else {
+                LoginView()
+            }
         }
     }
 }
