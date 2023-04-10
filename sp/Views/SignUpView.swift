@@ -35,6 +35,14 @@ struct SignUpView: View {
     }
     
     func verify(){
+        self.dismiss()
+    }
+    
+    func dismiss(oneStepBack: Bool = false) {
+        if (oneStepBack) {
+            self.signUpStep = .INITIAL_STEP
+            return;
+        }
         self.presentationMode.wrappedValue.dismiss()
     }
     
@@ -67,6 +75,15 @@ struct SignUpView: View {
                 Color.accentColor.edgesIgnoringSafeArea(.all)
 
                 VStack() {
+                    //Top Navigation Menu
+                    HStack {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(.secondaryColor)
+                            .onTapGesture(perform:  {
+                                self.dismiss()
+                            })
+                        Spacer()
+                    }
                     //Heading
                     VStack(spacing: 7) {
                         //Title
@@ -147,6 +164,15 @@ struct SignUpView: View {
                 Color.accentColor.edgesIgnoringSafeArea(.all)
                 
                 VStack() {
+                    //Top Navigation Menu
+                    HStack {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(.secondaryColor)
+                            .onTapGesture(perform:  {
+                                self.dismiss(oneStepBack: true)
+                            })
+                        Spacer()
+                    }
                     //Heading
                     VStack(spacing: 7) {
                         //Title
