@@ -14,6 +14,7 @@ struct CustomButton: View {
     var isDisabled: Bool = false
     var isLoading: Bool = false
     var isNavigationButton: Bool = false
+    var textSize: Size? = .h4
     var action: (() -> Void) /// use closure for callback
     
     func isDisabledOpacityValue() -> Double {
@@ -56,10 +57,7 @@ struct CustomButton: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: self.textForegroundColor()))
                         .scaleEffect(1)
                 } else {
-                    Text(self.label)
-                        .bold()
-                        .font(.system(size: 18))
-                        .foregroundColor(self.textForegroundColor())
+                    CustomText(text: self.label, size: self.textSize!, color: self.textForegroundColor(), bold: true)
                     
                 }
             }

@@ -38,28 +38,30 @@ struct CustomModal: View {
                         CustomButton(
                             label: self.alertText ?? "Okay",
                             type: .primary,
+                            textSize: .p1,
                             action: {
                                 self.show.toggle()
                             }
                         )
-                        .frame(width: 120, height: 30)
+                        .frame(width: 110, height: 28)
                     }
                     
                     if(self.type == .DECISION) {
                         HStack {
-                            
                             CustomButton(
                                 label: self.decisionCancelText ?? "Cancel",
                                 type: .secondary,
+                                textSize: .p1,
                                 action: {
                                     self.show.toggle()
                                 }
                             )
-                            .frame(height: 30)
-                            
+                            .frame(width: 110, height: 28)
+                            Spacer()
                             CustomButton(
                                 label: self.decisionProceedText ?? "Okay",
                                 type: .primary,
+                                textSize: .p1,
                                 action: {
                                     if (nil != decisionProceedAction) {
                                         decisionProceedAction
@@ -67,8 +69,9 @@ struct CustomModal: View {
                                     }
                                 }
                             )
-                            .frame(height: 30)
+                            .frame(width: 110, height: 28)
                         }
+                        .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                     }
      
                 }
@@ -95,6 +98,6 @@ struct CustomModal_Previews: PreviewProvider {
         CustomModal(title: "Development",
                     description: "Description",
                     type: .DECISION,
-                    show: .constant(false))
+                    show: .constant(true))
     }
 }
