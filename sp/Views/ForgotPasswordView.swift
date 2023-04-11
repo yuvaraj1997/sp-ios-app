@@ -68,7 +68,7 @@ struct ForgotPasswordView: View {
     
     var initialStepView: some View {
             ZStack {
-                Color.accentColor.edgesIgnoringSafeArea(.all)
+                Color.bgColor.edgesIgnoringSafeArea(.all)
                 
                 VStack() {
                     //Top Navigation Menu
@@ -121,13 +121,13 @@ struct ForgotPasswordView: View {
                     }
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
-                .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
+                .padding()
             }
         }
     
     var verificationCodeView: some View {
             ZStack {
-                Color.accentColor.edgesIgnoringSafeArea(.all)
+                Color.bgColor.edgesIgnoringSafeArea(.all)
 
                 VStack() {
                     //Top Navigation Menu
@@ -210,7 +210,7 @@ struct ForgotPasswordView: View {
                     }
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
-                .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
+                .padding()
             }
         
     }

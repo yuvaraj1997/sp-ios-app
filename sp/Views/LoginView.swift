@@ -24,7 +24,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.accentColor.edgesIgnoringSafeArea(.all)
+                Color.bgColor.edgesIgnoringSafeArea(.all)
                 
                 VStack() {
                     //Heading
@@ -88,7 +88,7 @@ struct LoginView: View {
                     }
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
-                .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
+                .padding()
             }
         }
         .overlay{

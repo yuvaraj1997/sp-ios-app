@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F23C448629E582BD0054982E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C448529E582BD0054982E /* File.swift */; };
+		F23C448829E582D10054982E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C448729E582D10054982E /* View.swift */; };
 		F2FD330229E2595900A7A40B /* spApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330129E2595900A7A40B /* spApp.swift */; };
 		F2FD330429E2595900A7A40B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330329E2595900A7A40B /* ContentView.swift */; };
 		F2FD330629E2595A00A7A40B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2FD330529E2595A00A7A40B /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F23C448529E582BD0054982E /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		F23C448729E582D10054982E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		F2FD32FE29E2595900A7A40B /* sp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2FD330129E2595900A7A40B /* spApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spApp.swift; sourceTree = "<group>"; };
 		F2FD330329E2595900A7A40B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +99,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F23C448429E582B20054982E /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				F23C448529E582BD0054982E /* File.swift */,
+			);
+			name = Shapes;
+			sourceTree = "<group>";
+		};
 		F2FD32F529E2595900A7A40B = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +205,7 @@
 		F2FD8E3429E25CCB00670000 /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				F23C448429E582B20054982E /* Shapes */,
 				F2FD8E3729E25CF900670000 /* CustomButton.swift */,
 				F2FD8E4229E3A4D300670000 /* CustomText.swift */,
 				F2FD8E5029E3E0A100670000 /* CustomModal.swift */,
@@ -207,6 +220,7 @@
 			children = (
 				F2FD8E3A29E27DB400670000 /* Color.swift */,
 				F2FD8E4B29E3D85700670000 /* String.swift */,
+				F23C448729E582D10054982E /* View.swift */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -373,6 +387,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F23C448829E582D10054982E /* View.swift in Sources */,
 				F2FD8E5329E3F9B100670000 /* CustomField.swift in Sources */,
 				F2FD8E4329E3A4D300670000 /* CustomText.swift in Sources */,
 				F2FD8E4029E3A2A900670000 /* LoginView.swift in Sources */,
@@ -383,6 +398,7 @@
 				F2FD8E4C29E3D85700670000 /* String.swift in Sources */,
 				F2FD8E5129E3E0A100670000 /* CustomModal.swift in Sources */,
 				F2FD8E3829E25CF900670000 /* CustomButton.swift in Sources */,
+				F23C448629E582BD0054982E /* File.swift in Sources */,
 				F2FD330429E2595900A7A40B /* ContentView.swift in Sources */,
 				F2FD8E3B29E27DB400670000 /* Color.swift in Sources */,
 				F2FD330229E2595900A7A40B /* spApp.swift in Sources */,
