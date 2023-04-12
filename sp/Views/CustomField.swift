@@ -90,9 +90,9 @@ struct CustomField_Previews: PreviewProvider {
         CustomField(
             type: .TEXT_FIELD,
             label: "Label",
-            isError: true,
+            isError: false,
             errorMessage: "Error Message",
-            val: .constant(""),
+            val: .constant("1200,00"),
             hint: "test"
         )
         .background(Color.accentColor)
