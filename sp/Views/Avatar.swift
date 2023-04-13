@@ -10,11 +10,13 @@ import SwiftUI
 struct Avatar: View {
     
     var image: String
+    var width: Double = 40
+    var height: Double = 40
     
     var body: some View {
         Image(self.image)
             .resizable()
-            .frame(width: 40, height: 40)
+            .frame(width: self.width, height: self.height)
             .clipShape(Circle())
             .overlay {
                 Circle().stroke(Color.secondaryColor, lineWidth: 2)

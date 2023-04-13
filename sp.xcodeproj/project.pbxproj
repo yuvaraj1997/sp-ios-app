@@ -17,6 +17,11 @@
 		F23C449629E67CF40054982E /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C449529E67CF40054982E /* Formatter.swift */; };
 		F23C449829E67D150054982E /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C449729E67D150054982E /* Numeric.swift */; };
 		F23C449A29E78FE00054982E /* NumbersOnlyViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C449929E78FE00054982E /* NumbersOnlyViewModifier.swift */; };
+		F23C449D29E843880054982E /* TransactionWalletSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C449C29E843880054982E /* TransactionWalletSelectionView.swift */; };
+		F23C449F29E845770054982E /* TransactionCategorySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C449E29E845770054982E /* TransactionCategorySelectionView.swift */; };
+		F23C44A129E8463F0054982E /* TransactionDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A029E8463F0054982E /* TransactionDateSelectionView.swift */; };
+		F23C44A329E847A60054982E /* TransactionHomepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A229E847A60054982E /* TransactionHomepage.swift */; };
+		F23C44A629E84B370054982E /* ProfileHomepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A529E84B370054982E /* ProfileHomepage.swift */; };
 		F2FD330229E2595900A7A40B /* spApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330129E2595900A7A40B /* spApp.swift */; };
 		F2FD330429E2595900A7A40B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330329E2595900A7A40B /* ContentView.swift */; };
 		F2FD330629E2595A00A7A40B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2FD330529E2595A00A7A40B /* Assets.xcassets */; };
@@ -66,6 +71,11 @@
 		F23C449529E67CF40054982E /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		F23C449729E67D150054982E /* Numeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
 		F23C449929E78FE00054982E /* NumbersOnlyViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumbersOnlyViewModifier.swift; sourceTree = "<group>"; };
+		F23C449C29E843880054982E /* TransactionWalletSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionWalletSelectionView.swift; sourceTree = "<group>"; };
+		F23C449E29E845770054982E /* TransactionCategorySelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategorySelectionView.swift; sourceTree = "<group>"; };
+		F23C44A029E8463F0054982E /* TransactionDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDateSelectionView.swift; sourceTree = "<group>"; };
+		F23C44A229E847A60054982E /* TransactionHomepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHomepage.swift; sourceTree = "<group>"; };
+		F23C44A529E84B370054982E /* ProfileHomepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHomepage.swift; sourceTree = "<group>"; };
 		F2FD32FE29E2595900A7A40B /* sp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2FD330129E2595900A7A40B /* spApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spApp.swift; sourceTree = "<group>"; };
 		F2FD330329E2595900A7A40B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -129,6 +139,25 @@
 				F23C448A29E59ACB0054982E /* PeriodSelectionView.swift */,
 			);
 			name = Selections;
+			sourceTree = "<group>";
+		};
+		F23C449B29E8434A0054982E /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				F23C449C29E843880054982E /* TransactionWalletSelectionView.swift */,
+				F23C449E29E845770054982E /* TransactionCategorySelectionView.swift */,
+				F23C44A029E8463F0054982E /* TransactionDateSelectionView.swift */,
+				F23C44A229E847A60054982E /* TransactionHomepage.swift */,
+			);
+			name = Transaction;
+			sourceTree = "<group>";
+		};
+		F23C44A429E84B200054982E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F23C44A529E84B370054982E /* ProfileHomepage.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		F2FD32F529E2595900A7A40B = {
@@ -201,6 +230,8 @@
 		F2FD332E29E259F600A7A40B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F23C44A429E84B200054982E /* Profile */,
+				F23C449B29E8434A0054982E /* Transaction */,
 				F23C448929E59AB10054982E /* Selections */,
 				F2FD8E5B29E446A500670000 /* Homepage */,
 				F2FD8E5429E4033F00670000 /* SignUp */,
@@ -421,10 +452,14 @@
 			files = (
 				F23C449629E67CF40054982E /* Formatter.swift in Sources */,
 				F23C448829E582D10054982E /* View.swift in Sources */,
+				F23C44A629E84B370054982E /* ProfileHomepage.swift in Sources */,
 				F2FD8E5329E3F9B100670000 /* CustomField.swift in Sources */,
 				F2FD8E4329E3A4D300670000 /* CustomText.swift in Sources */,
+				F23C449F29E845770054982E /* TransactionCategorySelectionView.swift in Sources */,
 				F2FD8E4029E3A2A900670000 /* LoginView.swift in Sources */,
+				F23C44A129E8463F0054982E /* TransactionDateSelectionView.swift in Sources */,
 				F2FD8E5D29E446B900670000 /* HomepageView.swift in Sources */,
+				F23C44A329E847A60054982E /* TransactionHomepage.swift in Sources */,
 				F2FD8E5F29E452A400670000 /* Avatar.swift in Sources */,
 				F2FD8E4629E3C8C000670000 /* ForgotPasswordView.swift in Sources */,
 				F23C449A29E78FE00054982E /* NumbersOnlyViewModifier.swift in Sources */,
@@ -440,6 +475,7 @@
 				F2FD8E3B29E27DB400670000 /* Color.swift in Sources */,
 				F2FD330229E2595900A7A40B /* spApp.swift in Sources */,
 				F2FD8E3D29E3A20C00670000 /* GetStartedView.swift in Sources */,
+				F23C449D29E843880054982E /* TransactionWalletSelectionView.swift in Sources */,
 				F23C448E29E59BCD0054982E /* Option.swift in Sources */,
 				F23C449429E5A5760054982E /* HomepageHeadingView.swift in Sources */,
 				F23C448B29E59ACB0054982E /* PeriodSelectionView.swift in Sources */,
