@@ -13,4 +13,12 @@ extension View {
         clipShape(RoundedCorner(radius: radius, corners: corners) )
     }
     
+    @ViewBuilder func applyTextColor(_ color: Color) -> some View {
+      if UITraitCollection.current.userInterfaceStyle == .light {
+        self.colorInvert().colorMultiply(color)
+      } else {
+        self.colorInvert().colorMultiply(color)
+      }
+    }  
+    
 }

@@ -14,12 +14,15 @@ struct HomepageView: View {
         case dec
     }
     
+    @Environment(\.colorScheme) var colorScheme
+
     @State private var showDetails = false
     
     @State private var showPeriodSelection = false
-    @State private var showTransactionForm = false
+    @State private var showTransactionForm = true
     @State private var showWalletSelection = false
     @State private var showCategorySelection = false
+    @State private var showTransactionDateSelection = false
     @State private var isEditForm = false
     @FocusState private var focusedField: FocusedField?
     
@@ -142,7 +145,7 @@ struct HomepageView: View {
                             //Category
                             self.formInput(prependIcon: "menucard", label: "Category", appendIcon: "chevron.right", onClickOpenModal: .CATEGORY_SELECTION)
                             //Calendar
-                            self.formInput(prependIcon: "calendar", label: "Today", appendIcon: "", onClickOpenModal: .CATEGORY_SELECTION)
+                            self.formInput(prependIcon: "calendar", label: "Today", appendIcon: "", onClickOpenModal: .CALENDAR_SELECTION)
                             //Note
                             self.formInput(prependIcon: "pencil", label: "Write a note", appendIcon: "", onClickOpenModal: .CATEGORY_SELECTION)
                             
@@ -248,7 +251,43 @@ struct HomepageView: View {
                     .transition(.move(edge: .bottom))
                     .ignoresSafeArea()
                 }
-            }.animation(.easeInOut(duration: 0.8), value: self.showWalletSelection || self.showCategorySelection)
+                if (self.showTransactionDateSelection) {
+                    Color.secondaryColor.opacity(0.7).transition(.opacity).ignoresSafeArea()
+                    VStack(spacing: 0) {
+                        Rectangle().opacity(0.001).ignoresSafeArea()
+                            .onTapGesture {
+                                self.showTransactionDateSelection.toggle()
+                            }
+                        VStack(alignment: .leading) {
+                            HStack(alignment: .center) {
+                                CustomText(text: "Select Transaction Date", size: .h4, color: .secondaryColor)
+                                Spacer()
+                                Image(systemName: "checkmark.circle.fill")
+                                    .font(.system(size: 18))
+                                    .foregroundColor(.secondaryColor)
+                                    .onTapGesture {
+                                        self.showTransactionDateSelection.toggle()
+                                    }
+                            }
+
+                            DatePicker(
+                                "Start Date",
+                                selection: $date,
+                                displayedComponents: [.date]
+                            )
+                            .datePickerStyle(.graphical)
+                            .labelsHidden()
+                            .colorScheme(.dark)
+                            .accentColor(.primaryColor)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 50) / 100, alignment: .topLeading)
+                        .padding()
+                        .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bgColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+                    }
+                    .transition(.move(edge: .bottom))
+                    .ignoresSafeArea()
+                }
+            }.animation(.easeInOut(duration: 0.8), value: self.showWalletSelection || self.showCategorySelection || self.showTransactionDateSelection)
         }
     }
     
@@ -259,12 +298,14 @@ struct HomepageView: View {
         self.showPeriodSelection = false
     }
     
-    enum ModalType {
+    enum TransactionFormInputType {
         case WALLET_SELECTION
         case CATEGORY_SELECTION
+        case CALENDAR_SELECTION
     }
+    @State private var date = Date.now
     
-    func formInput(prependIcon: String, label: String, appendIcon: String, onClickOpenModal: ModalType) -> AnyView {
+    func formInput(prependIcon: String, label: String, appendIcon: String, onClickOpenModal: TransactionFormInputType) -> AnyView {
         return AnyView(
             HStack(alignment: .center) {
                 Image(systemName: prependIcon)
@@ -274,19 +315,24 @@ struct HomepageView: View {
                 CustomText(text: label, size: .p1, color: .bgColor, bold: true)
                     .padding(.horizontal, 8)
                 Spacer()
-                Image(systemName: appendIcon)
-                    .font(.system(size: 28))
-                    .foregroundColor(.bgColor)
+                if appendIcon != "" {
+                    Image(systemName: appendIcon)
+                        .font(.system(size: 28))
+                        .foregroundColor(.bgColor)
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: 40, alignment: .leading)
             .padding(.vertical, 3)
             .background(Color.secondaryColor)
-            .onTapGesture {
+            .onTapGesture() {
                 if (onClickOpenModal == .WALLET_SELECTION) {
                     self.showWalletSelection.toggle()
                 }
                 if (onClickOpenModal == .CATEGORY_SELECTION) {
                     self.showCategorySelection.toggle()
+                }
+                if (onClickOpenModal == .CALENDAR_SELECTION) {
+                    self.showTransactionDateSelection.toggle()
                 }
             }
         )
