@@ -19,7 +19,7 @@ struct HomepageView: View {
     @State private var showDetails = false
     
     @State private var showPeriodSelection = false
-    @State private var showTransactionForm = true
+    @State private var showTransactionForm = false
     @State private var showWalletSelection = false
     @State private var showCategorySelection = false
     @State private var showTransactionDateSelection = false
@@ -27,6 +27,7 @@ struct HomepageView: View {
     @FocusState private var focusedField: FocusedField?
     
     @State private var transactionAmount: String = ""
+    @State private var note: String = "Write a note"
     
     private let screenWidth: Double = UIScreen.main.bounds.width
     private let screenHeight: Double = UIScreen.main.bounds.height
@@ -147,7 +148,7 @@ struct HomepageView: View {
                             //Calendar
                             self.formInput(prependIcon: "calendar", label: "Today", appendIcon: "", onClickOpenModal: .CALENDAR_SELECTION)
                             //Note
-                            self.formInput(prependIcon: "pencil", label: "Write a note", appendIcon: "", onClickOpenModal: .CATEGORY_SELECTION)
+                            self.formInput(prependIcon: "pencil", label: "Write a note", appendIcon: "", onClickOpenModal: .NOTE_INPUT)
                             
                             Spacer()
                             CustomButton(label: "Add Transaction", type: .primary, action: {})
@@ -302,6 +303,7 @@ struct HomepageView: View {
         case WALLET_SELECTION
         case CATEGORY_SELECTION
         case CALENDAR_SELECTION
+        case NOTE_INPUT
     }
     @State private var date = Date.now
     
@@ -312,8 +314,19 @@ struct HomepageView: View {
                     .font(.system(size: 28))
                     .foregroundColor(.bgColor)
                     .frame(width: 50)
-                CustomText(text: label, size: .p1, color: .bgColor, bold: true)
-                    .padding(.horizontal, 8)
+                if onClickOpenModal == .NOTE_INPUT {
+                    TextEditor(text: self.$note)
+                        .scrollContentBackground(.hidden) // <- Hide it
+                        .background(Color.secondaryColor) // To see this
+                        .onTapGesture {
+                            if (self.note == "Write a note") {
+                                self.note = ""
+                            }
+                        }
+                } else {
+                    CustomText(text: label, size: .p1, color: .bgColor, bold: true)
+                        .padding(.horizontal, 8)
+                }
                 Spacer()
                 if appendIcon != "" {
                     Image(systemName: appendIcon)
@@ -321,7 +334,7 @@ struct HomepageView: View {
                         .foregroundColor(.bgColor)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: 40, alignment: .leading)
+                .frame(maxWidth: .infinity, maxHeight: onClickOpenModal == .NOTE_INPUT ? 100 : 40, alignment: .leading)
             .padding(.vertical, 3)
             .background(Color.secondaryColor)
             .onTapGesture() {
