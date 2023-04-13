@@ -10,16 +10,18 @@ import Combine
 
 struct HomepageView: View {
     
+    enum FocusedField {
+        case dec
+    }
+    
     @State private var showDetails = false
-
-    init() {
-         UITableView.appearance().backgroundColor = UIColor(.red)
-     }
     
     @State private var showPeriodSelection = false
     @State private var showTransactionForm = false
+    @State private var showWalletSelection = false
     @State private var showCategorySelection = false
     @State private var isEditForm = false
+    @FocusState private var focusedField: FocusedField?
     
     @State private var transactionAmount: String = ""
     
@@ -108,19 +110,26 @@ struct HomepageView: View {
                             }
                             
                             TextField("MYR 0", text: self.$transactionAmount, prompt: Text("MYR 0").foregroundColor(.accentColor))
-                                .keyboardType(.decimalPad)
-                                .onReceive(Just(transactionAmount)) { newValue in
-                                    let filtered = newValue.filter { "0123456789.".contains($0) }
-                                    
-                                    if filtered != newValue {
-                                        self.transactionAmount = "MYR " + Double(filtered)!.formattedWithSeparator
-                                    }
-                                }
+                                .numbersOnly(self.$transactionAmount, includeDecimal: true)
+                                .focused($focusedField, equals: .dec)
                                 .bold()
                                 .foregroundColor(.bgColor)
                                 .font(.system(size: 32))
                                 .multilineTextAlignment(.center)
                                 .padding(.vertical, 40)
+                                .toolbar {
+                                    ToolbarItem(placement: .keyboard){
+                                        Spacer()
+                                    }
+                                    ToolbarItem(placement: .keyboard) {
+                                        Button {
+                                            self.focusedField = nil
+                                        } label: {
+                                            Image(systemName: "keyboard.chevron.compact.down")
+                                                .foregroundColor(.secondaryColor)
+                                        }
+                                    }
+                                }
                             
                             Divider()
                                 .frame(height: 1)
@@ -154,36 +163,39 @@ struct HomepageView: View {
         }
         .overlay {
             ZStack {
-                if (self.showCategorySelection) {
+                if (self.showWalletSelection) {
                     Color.secondaryColor.opacity(0.7).transition(.opacity).ignoresSafeArea()
-                    VStack {
-                        Spacer()
+                    VStack(spacing: 0) {
+                        Rectangle().opacity(0.001).ignoresSafeArea()
+                            .onTapGesture {
+                                self.showWalletSelection.toggle()
+                            }
                         VStack(alignment: .leading) {
                             CustomText(text: "Select Wallet", size: .h4, color: .secondaryColor)
                                 .padding(.bottom, 10)
-                            
-                                
-                                ScrollView(.vertical, showsIndicators: false) {
-                                    VStack {
-                                        ForEach((1..<10), id: \.self) { index in
-                                            HStack(alignment: .center) {
-                                                Image(systemName: "creditcard")
-                                                    .font(.system(size: 28))
-                                                    .foregroundColor(.secondaryColor)
-                                                    .frame(width: 50)
-                                                CustomText(text: "Wallet \(index)", size: .p1, color: .secondaryColor)
-                                            }
-                                            .padding(.vertical, 5)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .onTapGesture {
-                                                self.showCategorySelection.toggle()
-                                            }
+
+
+                            ScrollView(.vertical, showsIndicators: false) {
+                                VStack {
+                                    ForEach((1..<10), id: \.self) { index in
+                                        HStack(alignment: .center) {
+                                            Image(systemName: "creditcard")
+                                                .font(.system(size: 28))
+                                                .foregroundColor(.secondaryColor)
+                                                .frame(width: 50)
+                                            CustomText(text: "Wallet \(index)", size: .p1, color: .secondaryColor)
+                                        }
+                                        .padding(.vertical, 5)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .onTapGesture {
+                                            self.showWalletSelection.toggle()
                                         }
                                     }
-                                    .padding(.vertical, 10)
                                 }
+                                .padding(.vertical, 10)
+                            }
                         }
-                        
+
                         .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 30) / 100, alignment: .topLeading)
                         .padding()
                         .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bgColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
@@ -191,10 +203,56 @@ struct HomepageView: View {
                     .transition(.move(edge: .bottom))
                     .ignoresSafeArea()
                 }
-            }
-            .animation(.easeInOut(duration: 0.8), value: self.showCategorySelection)
+                if (self.showCategorySelection) {
+                    Color.secondaryColor.opacity(0.7).transition(.opacity).ignoresSafeArea()
+                    VStack(spacing: 0) {
+                        Rectangle().opacity(0.001).ignoresSafeArea()
+                            .onTapGesture {
+                                self.showCategorySelection.toggle()
+                            }
+                        VStack(alignment: .leading) {
+                            CustomText(text: "Select Category", size: .h4, color: .secondaryColor)
+                                .padding(.bottom, 10)
+
+                            ScrollView(.vertical, showsIndicators: false) {
+                                VStack {
+                                    LazyVGrid(columns: columns) {
+                                        ForEach((1..<40), id: \.self) { index in
+                                            VStack(alignment: .center) {
+                                                Circle()
+                                                    .fill(Color.secondaryColor)
+                                                    .frame(width: 45, height: 45)
+                                                    .overlay {
+                                                        
+                                                    Image(systemName: "creditcard")
+                                                        .font(.system(size: 20))
+                                                        .foregroundColor(.bgColor)
+                                                    }
+                                                CustomText(text: "Category \(index)", size: .p1, color: .secondaryColor)
+                                            }
+                                            .padding(.vertical, 5)
+                                            .onTapGesture {
+                                                self.showCategorySelection.toggle()
+                                            }
+                                        }
+                                    }
+                                }
+                                .padding(.vertical, 10)
+                            }
+                        }
+
+                        .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 30) / 100, alignment: .topLeading)
+                        .padding()
+                        .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bgColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+                    }
+                    .transition(.move(edge: .bottom))
+                    .ignoresSafeArea()
+                }
+            }.animation(.easeInOut(duration: 0.8), value: self.showWalletSelection || self.showCategorySelection)
         }
     }
+    
+    let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
     
     func onSelectionPeriod(val: String) {
         print(val)
@@ -222,7 +280,11 @@ struct HomepageView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: 40, alignment: .leading)
             .padding(.vertical, 3)
+            .background(Color.secondaryColor)
             .onTapGesture {
+                if (onClickOpenModal == .WALLET_SELECTION) {
+                    self.showWalletSelection.toggle()
+                }
                 if (onClickOpenModal == .CATEGORY_SELECTION) {
                     self.showCategorySelection.toggle()
                 }
