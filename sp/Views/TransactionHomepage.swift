@@ -143,100 +143,93 @@ struct TransactionHomepage: View {
                 PeriodSelectionView(buttonCallBack: self.onSelectionPeriod)
             }
             .ignoresSafeArea()
-        }.overlay {
-            ZStack {
-                if (self.showTransactionForm) {
-                    Color.bgColor.opacity(0.7).transition(.opacity).ignoresSafeArea()
-                    VStack {
+        }
+        .sheet(isPresented: self.$showTransactionForm, onDismiss: didDismiss) {
+            VStack {
+                VStack {
+                    HStack {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.bgColor)
+                            .bold()
+                            .onTapGesture {
+                                self.showTransactionForm.toggle()
+                            }
+                            .frame(width: 50)
                         Spacer()
+                        CustomText(text: self.isEditForm ? "Edit" : "Add a transaction", size: .h4, color: .bgColor, bold: true)
+                            .frame(width: 250)
+                            .multilineTextAlignment(.center)
+                        Spacer()
+                        Image(systemName: self.isEditForm ? "trash.circle.fill" : "")
+                            .foregroundColor(.bgColor)
+                            .bold()
+                            .onTapGesture {
+                                if (self.isEditForm) {
+                                    //                                            self.showTransactionForm.toggle()
+                                    //Delete
+                                }
+                            }
+                            .frame(width: 50)
+                    }
+                    
+                    TextField("MYR 0", text: self.$transactionAmount, prompt: Text("MYR 0").foregroundColor(.accentColor))
+                        .numbersOnly(self.$transactionAmount, includeDecimal: true)
+                        .focused($focusedField, equals: .dec)
+                        .bold()
+                        .foregroundColor(.bgColor)
+                        .font(.system(size: 32))
+                        .multilineTextAlignment(.center)
+                        .padding(.vertical, 40)
+                        .toolbar {
+                            ToolbarItem(placement: .keyboard){
+                                Spacer()
+                            }
+                            ToolbarItem(placement: .keyboard) {
+                                Button {
+                                    self.focusedField = nil
+                                } label: {
+                                    Image(systemName: "keyboard.chevron.compact.down")
+                                        .foregroundColor(.secondaryColor)
+                                }
+                            }
+                        }
+                    
+                    Divider()
+                        .frame(height: 1)
+                        .overlay(Color.bgColor)
+                        .frame(maxWidth: 250)
+                        .padding(.vertical, -40)
+                    
+                    ScrollView(.vertical, showsIndicators: false) {
                         VStack {
-                            HStack {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.bgColor)
-                                    .bold()
-                                    .onTapGesture {
-                                        self.showTransactionForm.toggle()
-                                    }
-                                    .frame(width: 50)
-                                Spacer()
-                                CustomText(text: self.isEditForm ? "Edit" : "Add a transaction", size: .h4, color: .bgColor, bold: true)
-                                    .frame(width: 250)
-                                    .multilineTextAlignment(.center)
-                                Spacer()
-                                Image(systemName: self.isEditForm ? "trash.circle.fill" : "")
-                                    .foregroundColor(.bgColor)
-                                    .bold()
-                                    .onTapGesture {
-                                        if (self.isEditForm) {
-                                            //                                            self.showTransactionForm.toggle()
-                                            //Delete
-                                        }
-                                    }
-                                    .frame(width: 50)
-                            }
                             
-                            TextField("MYR 0", text: self.$transactionAmount, prompt: Text("MYR 0").foregroundColor(.accentColor))
-                                .numbersOnly(self.$transactionAmount, includeDecimal: true)
-                                .focused($focusedField, equals: .dec)
-                                .bold()
-                                .foregroundColor(.bgColor)
-                                .font(.system(size: 32))
-                                .multilineTextAlignment(.center)
-                                .padding(.vertical, 40)
-                                .toolbar {
-                                    ToolbarItem(placement: .keyboard){
-                                        Spacer()
-                                    }
-                                    ToolbarItem(placement: .keyboard) {
-                                        Button {
-                                            self.focusedField = nil
-                                        } label: {
-                                            Image(systemName: "keyboard.chevron.compact.down")
-                                                .foregroundColor(.secondaryColor)
-                                        }
-                                    }
-                                }
-                            
-                            Divider()
-                                .frame(height: 1)
-                                .overlay(Color.bgColor)
-                                .frame(maxWidth: 250)
-                                .padding(.vertical, -40)
-                            
-                            ScrollView(.vertical, showsIndicators: false) {
-                                VStack {
-                                    
-                                    //Wallet Selection
-                                    self.formInput(prependIcon: "creditcard", label: "Wallet", appendIcon: "chevron.right", onClickOpenModal: .WALLET_SELECTION)
-                                    //Category
-                                    self.formInput(prependIcon: "menucard", label: "Category", appendIcon: "chevron.right", onClickOpenModal: .CATEGORY_SELECTION)
-                                    //Calendar
-                                    self.formInput(prependIcon: "calendar", label: "Today", appendIcon: "", onClickOpenModal: .CALENDAR_SELECTION)
-                                    //Note
-                                    self.formInput(prependIcon: "pencil", label: "Write a note", appendIcon: "", onClickOpenModal: .NOTE_INPUT)
-                                }
-                                
-                            }
-                            Spacer()
-                            CustomButton(label: "Add Transaction", type: .primary, action: {})
-                            
+                            //Wallet Selection
+                            self.formInput(prependIcon: "creditcard", label: "Wallet", appendIcon: "chevron.right", onClickOpenModal: .WALLET_SELECTION)
+                            //Category
+                            self.formInput(prependIcon: "menucard", label: "Category", appendIcon: "chevron.right", onClickOpenModal: .CATEGORY_SELECTION)
+                            //Calendar
+                            self.formInput(prependIcon: "calendar", label: "Today", appendIcon: "", onClickOpenModal: .CALENDAR_SELECTION)
+                            //Note
+                            self.formInput(prependIcon: "pencil", label: "Write a note", appendIcon: "", onClickOpenModal: .NOTE_INPUT)
                         }
                         
-                        .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 88) / 100, alignment: .topLeading)
-                        .padding()
-                        .background(RoundedCorner(radius: 20, corners: [.topLeft, .topRight]).fill(Color.secondaryColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
                     }
-                    .transition(.move(edge: .bottom))
-                    .ignoresSafeArea()
+                    Spacer()
+                    CustomButton(label: "Add Transaction", type: .primary, action: {})
+                    
+                }
+                .padding()
+                .background(RoundedCorner(radius: 20, corners: [.topLeft, .topRight]).fill(Color.secondaryColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+                
+                .overlay {
+                    TransactionWalletSelectionView(showWalletSelection: self.$showWalletSelection)
+                    TransactionCategorySelectionView(showCategorySelection: self.$showCategorySelection)
+                    TransactionDateSelectionView(showTransactionDateSelection:  self.$showTransactionDateSelection, date: self.$date)
+
                 }
             }
-            .animation(.easeInOut(duration: 0.8), value: self.showTransactionForm)
-        }
-        .overlay {
-            TransactionWalletSelectionView(showWalletSelection: self.$showWalletSelection)
-            TransactionCategorySelectionView(showCategorySelection: self.$showCategorySelection)
-            TransactionDateSelectionView(showTransactionDateSelection:  self.$showTransactionDateSelection, date: self.$date)
-
+            .presentationDetents([.height( (self.screenHeight * 75) / 100)])
+            .ignoresSafeArea()
         }
     }
 }

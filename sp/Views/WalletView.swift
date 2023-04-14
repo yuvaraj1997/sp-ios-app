@@ -11,7 +11,10 @@ struct WalletView: View {
     
     @State private var index = 0
     
+    @State var showWalletCreation: Bool = false
+    
     var body: some View {
+        ZStack {
         //Wallets & Transactions
         ScrollView(.vertical) {
             Group {
@@ -27,13 +30,17 @@ struct WalletView: View {
                     VStack {
                         TabView(selection: $index) {
                                      ForEach((0..<3), id: \.self) { index in
-                                         CardView()
+                                         CardView(action: {})
                                      }
+                                    CardView(emptyCard: true, action: {
+                                        self.showWalletCreation.toggle()
+                                    })
+                                    .tag(3)
                                  }
                                  .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                         
                         HStack(spacing: 2) {
-                            ForEach((0..<3), id: \.self) { index in
+                            ForEach((0..<4), id: \.self) { index in
                                 Circle()
                                     .fill(index == self.index ? Color.secondaryColor : Color.secondaryColor.opacity(0.5))
                                     .frame(width: 10, height: 10)
@@ -88,6 +95,10 @@ struct WalletView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
             }
+        }
+        .overlay {
+            CreateWalletView(showCreateWallet: self.$showWalletCreation)
+        }
         }
         //End Scroll View
     }

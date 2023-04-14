@@ -12,7 +12,7 @@ struct HomepageView: View {
     
 
     init() {
-        UITabBar.appearance().backgroundColor = UIColor(red: 0.84, green: 0.90, blue: 0.89, alpha: 1.00)
+//        UITabBar.appearance().backgroundColor = UIColor(red: 0.84, green: 0.90, blue: 0.89, alpha: 1.00)
     }
     
     
@@ -27,7 +27,6 @@ struct HomepageView: View {
                     Label("Profile", systemImage: "person.circle")
                 }
         }
-        .accentColor(.primaryColor)
     }
     
     

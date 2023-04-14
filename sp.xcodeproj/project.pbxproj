@@ -22,6 +22,8 @@
 		F23C44A129E8463F0054982E /* TransactionDateSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A029E8463F0054982E /* TransactionDateSelectionView.swift */; };
 		F23C44A329E847A60054982E /* TransactionHomepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A229E847A60054982E /* TransactionHomepage.swift */; };
 		F23C44A629E84B370054982E /* ProfileHomepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A529E84B370054982E /* ProfileHomepage.swift */; };
+		F23C44A829E953700054982E /* ProfilePasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A729E953700054982E /* ProfilePasswordChangeView.swift */; };
+		F23C44AA29E960110054982E /* CreateWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A929E960110054982E /* CreateWalletView.swift */; };
 		F2FD330229E2595900A7A40B /* spApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330129E2595900A7A40B /* spApp.swift */; };
 		F2FD330429E2595900A7A40B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330329E2595900A7A40B /* ContentView.swift */; };
 		F2FD330629E2595A00A7A40B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2FD330529E2595A00A7A40B /* Assets.xcassets */; };
@@ -76,6 +78,8 @@
 		F23C44A029E8463F0054982E /* TransactionDateSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDateSelectionView.swift; sourceTree = "<group>"; };
 		F23C44A229E847A60054982E /* TransactionHomepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHomepage.swift; sourceTree = "<group>"; };
 		F23C44A529E84B370054982E /* ProfileHomepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHomepage.swift; sourceTree = "<group>"; };
+		F23C44A729E953700054982E /* ProfilePasswordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePasswordChangeView.swift; sourceTree = "<group>"; };
+		F23C44A929E960110054982E /* CreateWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletView.swift; sourceTree = "<group>"; };
 		F2FD32FE29E2595900A7A40B /* sp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2FD330129E2595900A7A40B /* spApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spApp.swift; sourceTree = "<group>"; };
 		F2FD330329E2595900A7A40B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				F23C44A529E84B370054982E /* ProfileHomepage.swift */,
+				F23C44A729E953700054982E /* ProfilePasswordChangeView.swift */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				F23C448F29E5A4C60054982E /* CardView.swift */,
 				F23C449129E5A5200054982E /* WalletView.swift */,
 				F23C449329E5A5760054982E /* HomepageHeadingView.swift */,
+				F23C44A929E960110054982E /* CreateWalletView.swift */,
 			);
 			name = Homepage;
 			sourceTree = "<group>";
@@ -471,6 +477,7 @@
 				F2FD8E3829E25CF900670000 /* CustomButton.swift in Sources */,
 				F23C448629E582BD0054982E /* File.swift in Sources */,
 				F2FD330429E2595900A7A40B /* ContentView.swift in Sources */,
+				F23C44A829E953700054982E /* ProfilePasswordChangeView.swift in Sources */,
 				F23C449829E67D150054982E /* Numeric.swift in Sources */,
 				F2FD8E3B29E27DB400670000 /* Color.swift in Sources */,
 				F2FD330229E2595900A7A40B /* spApp.swift in Sources */,
@@ -478,6 +485,7 @@
 				F23C449D29E843880054982E /* TransactionWalletSelectionView.swift in Sources */,
 				F23C448E29E59BCD0054982E /* Option.swift in Sources */,
 				F23C449429E5A5760054982E /* HomepageHeadingView.swift in Sources */,
+				F23C44AA29E960110054982E /* CreateWalletView.swift in Sources */,
 				F23C448B29E59ACB0054982E /* PeriodSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
