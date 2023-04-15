@@ -22,6 +22,7 @@ struct TransactionHomepage: View {
     
     //Transaction Form
     @State private var showTransactionForm = false
+    @State private var tesSheetOverlay = false
     @State private var showWalletSelection = false
     @State private var showCategorySelection = false
     @State private var showTransactionDateSelection = false
@@ -61,16 +62,34 @@ struct TransactionHomepage: View {
                     .foregroundColor(.bgColor)
                     .frame(width: 50)
                 if onClickOpenModal == .NOTE_INPUT {
-                    TextEditor(text: self.$note)
-                        .focused($focusedField, equals: .note)
-                        .scrollContentBackground(.hidden) // <- Hide it
-                        .background(Color.secondaryColor) // To see this
-                        .foregroundColor(.bgColor)
-                        .onTapGesture {
-                            if (self.note == "Write a note") {
-                                self.note = ""
+                    NavigationView {
+                        TextEditor(text: self.$note)
+                            .focused($focusedField, equals: .note)
+                            .toolbar {
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    HStack {
+                                        Button(action: {
+                                        }) { Text("").foregroundColor(.white) }
+                                        Spacer()
+                                        Button(action: {
+                                            if (self.note == "") {
+                                                self.note = "Write a note"
+                                            }
+                                            hideKeyboard()
+                                        }) { Text("Done").foregroundColor(.white) }
+                                    }
+                                }
                             }
-                        }
+                            .scrollContentBackground(.hidden) // <- Hide it
+                            .background(Color.secondaryColor) // To see this
+                            .foregroundColor(.bgColor)
+                            .autocorrectionDisabled()
+                            .onTapGesture {
+                                if (self.note == "Write a note") {
+                                    self.note = ""
+                                }
+                            }
+                    }
                 } else {
                     CustomText(text: label, size: .p1, color: .bgColor, bold: true)
                         .padding(.horizontal, 8)
@@ -100,49 +119,40 @@ struct TransactionHomepage: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack(alignment: .top) {
-                GeometryReader { reader in
-                    Color.primaryColor
-                        .frame(height: reader.safeAreaInsets.top, alignment: .top)
-                        .ignoresSafeArea()
-                }
-                Color.bgColor.edgesIgnoringSafeArea([.bottom])
-                
-                
-                VStack {
-                    Spacer()
-                    Circle()
-                        .fill(Color.primaryColor)
-                        .frame(width: 50, height: 50)
-                        .overlay{
-                            Image(systemName: "plus")
-                                .foregroundColor(.secondaryColor)
-                        }
-                        .onTapGesture {
-                            self.showTransactionForm.toggle()
-                        }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
-                .padding()
-                .zIndex(1)
-                
-                VStack(spacing: 0) {
-                    //Heading Card
-                    HomepageHeadingView(showPeriodSelection: self.$showPeriodSelection)
-                    
-                    //Wallet
-                    WalletView()
-                    
-                }
+        ZStack(alignment: .top) {
+            GeometryReader { reader in
+                Color.primaryColor
+                    .frame(height: reader.safeAreaInsets.top, alignment: .top)
+                    .ignoresSafeArea()
             }
-        }
-        .sheet(isPresented: self.$showPeriodSelection, onDismiss: didDismiss) {
-            ZStack(alignment: .leading) {
-                Color.accentColor.presentationDetents([.height(200)])
-                PeriodSelectionView(buttonCallBack: self.onSelectionPeriod)
+            Color.bgColor.edgesIgnoringSafeArea([.bottom])
+            
+            
+            VStack {
+                Spacer()
+                Circle()
+                    .fill(Color.primaryColor)
+                    .frame(width: 50, height: 50)
+                    .overlay{
+                        Image(systemName: "plus")
+                            .foregroundColor(.secondaryColor)
+                    }
+                    .onTapGesture {
+                        self.showTransactionForm.toggle()
+                    }
             }
-            .ignoresSafeArea()
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+            .padding()
+            .zIndex(1)
+            
+            VStack(spacing: 0) {
+                //Heading Card
+                HomepageHeadingView(showPeriodSelection: self.$showPeriodSelection)
+                
+                //Wallet
+                WalletView()
+                
+            }
         }
         .sheet(isPresented: self.$showTransactionForm, onDismiss: didDismiss) {
             VStack {
@@ -228,7 +238,7 @@ struct TransactionHomepage: View {
 
                 }
             }
-            .presentationDetents([.height( (self.screenHeight * 75) / 100)])
+            .presentationDetents([.height( (self.screenHeight * 85) / 100)])
             .ignoresSafeArea()
         }
     }
@@ -236,6 +246,7 @@ struct TransactionHomepage: View {
 
 struct TransactionHomepage_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionHomepage()
+//        TransactionHomepage()
+        HomepageView()
     }
 }
