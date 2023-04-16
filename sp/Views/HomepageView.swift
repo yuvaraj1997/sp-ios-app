@@ -82,6 +82,7 @@ struct HomepageView: View {
         .animation(.easeInOut(duration: 0.4), value: self.currModel)
         .overlay {
             CreateWalletView()
+            TransactionFormView()
         }
     }
     
