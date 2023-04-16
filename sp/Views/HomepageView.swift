@@ -115,5 +115,6 @@ struct HomepageView: View {
 struct HomepageView_Previews: PreviewProvider {
     static var previews: some View {
         HomepageView()
+            .environmentObject(ModalControl())
     }
 }

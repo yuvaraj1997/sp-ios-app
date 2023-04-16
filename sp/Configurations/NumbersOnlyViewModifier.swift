@@ -34,7 +34,7 @@ struct NumbersOnlyViewModifier: ViewModifier {
                     }
                 }
                 
-                if (nil != self.text && self.text != "") {
+                if (self.text != "") {
                     self.text = String(Double(self.text)!.formattedWithSeparator)
                 }
                 

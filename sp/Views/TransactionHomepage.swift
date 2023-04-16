@@ -248,5 +248,6 @@ struct TransactionHomepage_Previews: PreviewProvider {
     static var previews: some View {
 //        TransactionHomepage()
         HomepageView()
+            .environmentObject(ModalControl())
     }
 }

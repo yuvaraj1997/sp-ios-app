@@ -25,6 +25,8 @@
 		F23C44A829E953700054982E /* ProfilePasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A729E953700054982E /* ProfilePasswordChangeView.swift */; };
 		F23C44AA29E960110054982E /* CreateWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A929E960110054982E /* CreateWalletView.swift */; };
 		F23C44AC29EB880D0054982E /* ModalControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44AB29EB880D0054982E /* ModalControl.swift */; };
+		F23C44AF29EB8F070054982E /* TransactionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44AE29EB8F070054982E /* TransactionFormView.swift */; };
+		F23C44B129EB9FE20054982E /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44B029EB9FE20054982E /* KeyboardHandler.swift */; };
 		F2FD330229E2595900A7A40B /* spApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330129E2595900A7A40B /* spApp.swift */; };
 		F2FD330429E2595900A7A40B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330329E2595900A7A40B /* ContentView.swift */; };
 		F2FD330629E2595A00A7A40B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2FD330529E2595A00A7A40B /* Assets.xcassets */; };
@@ -82,6 +84,8 @@
 		F23C44A729E953700054982E /* ProfilePasswordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePasswordChangeView.swift; sourceTree = "<group>"; };
 		F23C44A929E960110054982E /* CreateWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletView.swift; sourceTree = "<group>"; };
 		F23C44AB29EB880D0054982E /* ModalControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalControl.swift; sourceTree = "<group>"; };
+		F23C44AE29EB8F070054982E /* TransactionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFormView.swift; sourceTree = "<group>"; };
+		F23C44B029EB9FE20054982E /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
 		F2FD32FE29E2595900A7A40B /* sp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2FD330129E2595900A7A40B /* spApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spApp.swift; sourceTree = "<group>"; };
 		F2FD330329E2595900A7A40B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -150,10 +154,15 @@
 		F23C449B29E8434A0054982E /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				F23C44AD29EB8EC40054982E /* TransactionForm */,
+				F23C449129E5A5200054982E /* WalletView.swift */,
 				F23C449C29E843880054982E /* TransactionWalletSelectionView.swift */,
 				F23C449E29E845770054982E /* TransactionCategorySelectionView.swift */,
 				F23C44A029E8463F0054982E /* TransactionDateSelectionView.swift */,
 				F23C44A229E847A60054982E /* TransactionHomepage.swift */,
+				F23C448F29E5A4C60054982E /* CardView.swift */,
+				F23C44A929E960110054982E /* CreateWalletView.swift */,
+				F23C449329E5A5760054982E /* HomepageHeadingView.swift */,
 			);
 			name = Transaction;
 			sourceTree = "<group>";
@@ -165,6 +174,14 @@
 				F23C44A729E953700054982E /* ProfilePasswordChangeView.swift */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		F23C44AD29EB8EC40054982E /* TransactionForm */ = {
+			isa = PBXGroup;
+			children = (
+				F23C44AE29EB8F070054982E /* TransactionFormView.swift */,
+			);
+			name = TransactionForm;
 			sourceTree = "<group>";
 		};
 		F2FD32F529E2595900A7A40B = {
@@ -231,6 +248,7 @@
 			children = (
 				F23C448D29E59BCD0054982E /* Option.swift */,
 				F23C44AB29EB880D0054982E /* ModalControl.swift */,
+				F23C44B029EB9FE20054982E /* KeyboardHandler.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,10 +339,6 @@
 			isa = PBXGroup;
 			children = (
 				F2FD8E5C29E446B900670000 /* HomepageView.swift */,
-				F23C448F29E5A4C60054982E /* CardView.swift */,
-				F23C449129E5A5200054982E /* WalletView.swift */,
-				F23C449329E5A5760054982E /* HomepageHeadingView.swift */,
-				F23C44A929E960110054982E /* CreateWalletView.swift */,
 			);
 			name = Homepage;
 			sourceTree = "<group>";
@@ -475,6 +489,7 @@
 				F23C449029E5A4C60054982E /* CardView.swift in Sources */,
 				F2FD8E5629E4036700670000 /* SignUpView.swift in Sources */,
 				F2FD8E4C29E3D85700670000 /* String.swift in Sources */,
+				F23C44AF29EB8F070054982E /* TransactionFormView.swift in Sources */,
 				F2FD8E5129E3E0A100670000 /* CustomModal.swift in Sources */,
 				F23C449229E5A5200054982E /* WalletView.swift in Sources */,
 				F2FD8E3829E25CF900670000 /* CustomButton.swift in Sources */,
@@ -483,6 +498,7 @@
 				F23C44A829E953700054982E /* ProfilePasswordChangeView.swift in Sources */,
 				F23C449829E67D150054982E /* Numeric.swift in Sources */,
 				F2FD8E3B29E27DB400670000 /* Color.swift in Sources */,
+				F23C44B129EB9FE20054982E /* KeyboardHandler.swift in Sources */,
 				F2FD330229E2595900A7A40B /* spApp.swift in Sources */,
 				F2FD8E3D29E3A20C00670000 /* GetStartedView.swift in Sources */,
 				F23C449D29E843880054982E /* TransactionWalletSelectionView.swift in Sources */,

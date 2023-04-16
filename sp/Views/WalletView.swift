@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WalletView: View {
     
-    @State private var index = 3
+    @State private var index = 0
     
     @EnvironmentObject var modalControl: ModalControl
     

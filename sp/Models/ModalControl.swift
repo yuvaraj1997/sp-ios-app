@@ -11,5 +11,6 @@ import Foundation
 class ModalControl: ObservableObject {
     
     @Published var showCreateWalletView = false
+    @Published var showTransactionForm = false
     
 }
