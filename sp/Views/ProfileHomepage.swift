@@ -113,10 +113,10 @@ struct ProfileHomepage: View {
                             
                             Spacer()
                             CustomButton(label: "Save Changes", type: .primary, action: {})
-                                .frame(width: .infinity, height: 60)
+                                .frame(width: self.screenWidth, height: 60)
                                 .padding(.vertical, 10)
                             CustomButton(label: "Logout", type: .error, action: {})
-                                .frame(width: .infinity, height: 60)
+                                .frame(width: self.screenWidth, height: 60)
                                 .padding(.vertical, 10)
                                 
                         }

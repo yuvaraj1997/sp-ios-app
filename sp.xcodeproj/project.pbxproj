@@ -24,6 +24,7 @@
 		F23C44A629E84B370054982E /* ProfileHomepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A529E84B370054982E /* ProfileHomepage.swift */; };
 		F23C44A829E953700054982E /* ProfilePasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A729E953700054982E /* ProfilePasswordChangeView.swift */; };
 		F23C44AA29E960110054982E /* CreateWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44A929E960110054982E /* CreateWalletView.swift */; };
+		F23C44AC29EB880D0054982E /* ModalControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44AB29EB880D0054982E /* ModalControl.swift */; };
 		F2FD330229E2595900A7A40B /* spApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330129E2595900A7A40B /* spApp.swift */; };
 		F2FD330429E2595900A7A40B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330329E2595900A7A40B /* ContentView.swift */; };
 		F2FD330629E2595A00A7A40B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2FD330529E2595A00A7A40B /* Assets.xcassets */; };
@@ -80,6 +81,7 @@
 		F23C44A529E84B370054982E /* ProfileHomepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHomepage.swift; sourceTree = "<group>"; };
 		F23C44A729E953700054982E /* ProfilePasswordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePasswordChangeView.swift; sourceTree = "<group>"; };
 		F23C44A929E960110054982E /* CreateWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletView.swift; sourceTree = "<group>"; };
+		F23C44AB29EB880D0054982E /* ModalControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalControl.swift; sourceTree = "<group>"; };
 		F2FD32FE29E2595900A7A40B /* sp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2FD330129E2595900A7A40B /* spApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spApp.swift; sourceTree = "<group>"; };
 		F2FD330329E2595900A7A40B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				F23C448D29E59BCD0054982E /* Option.swift */,
+				F23C44AB29EB880D0054982E /* ModalControl.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				F2FD330229E2595900A7A40B /* spApp.swift in Sources */,
 				F2FD8E3D29E3A20C00670000 /* GetStartedView.swift in Sources */,
 				F23C449D29E843880054982E /* TransactionWalletSelectionView.swift in Sources */,
+				F23C44AC29EB880D0054982E /* ModalControl.swift in Sources */,
 				F23C448E29E59BCD0054982E /* Option.swift in Sources */,
 				F23C449429E5A5760054982E /* HomepageHeadingView.swift in Sources */,
 				F23C44AA29E960110054982E /* CreateWalletView.swift in Sources */,

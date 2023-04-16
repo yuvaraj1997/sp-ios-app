@@ -10,10 +10,12 @@ import SwiftUI
 @main
 struct spApp: App {
 
-
+    @StateObject var modalControl = ModalControl()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(modalControl)
         }
     }
 }

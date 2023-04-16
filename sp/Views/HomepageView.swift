@@ -12,7 +12,8 @@ struct HomepageView: View {
     
     @State var currModel: HomepageModels = .TRANSACTION_HOME
     
-    
+    private let screenWidth: Double = UIScreen.main.bounds.width
+    private let screenHeight: Double = UIScreen.main.bounds.height
     
 
     init() {
@@ -50,7 +51,6 @@ struct HomepageView: View {
                         }
                     })
             }
-//            Spacer()
             HStack(alignment: .center) {
                 HStack(alignment: .center) {
                     VStack {
@@ -80,7 +80,9 @@ struct HomepageView: View {
             .background(Color.secondaryColor)
         }
         .animation(.easeInOut(duration: 0.4), value: self.currModel)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
+            CreateWalletView()
+        }
     }
     
     enum HomepageModels{

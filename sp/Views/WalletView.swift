@@ -9,96 +9,93 @@ import SwiftUI
 
 struct WalletView: View {
     
-    @State private var index = 0
+    @State private var index = 3
     
-    @State var showWalletCreation: Bool = false
+    @EnvironmentObject var modalControl: ModalControl
     
     var body: some View {
         ZStack {
-        //Wallets & Transactions
-        ScrollView(.vertical) {
-            Group {
-                //Wallets
-                VStack(alignment: .leading) {
-                    CustomText(text: "Wallets", size: .h4, color: .secondaryColor, bold: true)
-                }
-                .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                VStack {
-                    Spacer()
-                    VStack {
-                        TabView(selection: $index) {
-                                     ForEach((0..<3), id: \.self) { index in
-                                         CardView(action: {})
-                                     }
-                                    CardView(emptyCard: true, action: {
-                                        self.showWalletCreation.toggle()
-                                    })
-                                    .tag(3)
-                                 }
-                                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                        
-                        HStack(spacing: 2) {
-                            ForEach((0..<4), id: \.self) { index in
-                                Circle()
-                                    .fill(index == self.index ? Color.secondaryColor : Color.secondaryColor.opacity(0.5))
-                                    .frame(width: 10, height: 10)
-                                    .padding(.horizontal, 3)
-                                    .padding(.vertical, -120)
-
-                            }
-                        }
-                        .padding()
-                    }
-                }
-                .padding(EdgeInsets(top: -130, leading: 0, bottom: 0, trailing: 0))
-                .frame(height: 340)
-                
-                //Transactions
+            //Wallets & Transactions
+            ScrollView(.vertical) {
                 Group {
+                    //Wallets
                     VStack(alignment: .leading) {
-                        CustomText(text: "Transactions", size: .h4, color: .secondaryColor, bold: true)
+                        CustomText(text: "Wallets", size: .p1, color: .secondaryColor, bold: true)
                     }
-                    .padding(EdgeInsets(top: -120, leading: 0, bottom: 0, trailing: 0))
-
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     VStack {
-                        ForEach((0..<10), id: \.self) { index in
+                        Spacer()
+                        VStack {
+                            TabView(selection: $index) {
+                                         ForEach((0..<3), id: \.self) { index in
+                                             CardView(action: {})
+                                         }
+                                        CardView(emptyCard: true, action: {
+                                            self.modalControl.showCreateWalletView.toggle()
+                                        })
+                                        .tag(3)
+                                     }
+                                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                             
-                            HStack(alignment: .center) {
-                                Circle()
-                                    .fill(Color.secondaryColor)
-                                    .frame(width: 46, height: 46)
-                                    .overlay{
-                                        Image(systemName: "cart.fill")
-                                            .foregroundColor(Color.bgColor)
-                                    }
-                                VStack(alignment: .leading) {
-                                    
-                                    CustomText(text: "Shopping", size: .p1, color: .secondaryColor, bold: true)
-                                    CustomText(text: "11 Jan 2022", size: .p1, color: .secondaryColor, bold: false)
-                                }.padding(.horizontal, 8)
-                                Spacer()
-                                
-                                if index % 2 == 0 {
-                                    CustomText(text: "- MYR 20.00", size: .p1, color: .error, bold: true)
-                                } else {
-                                    CustomText(text: "+ MYR 20.00", size: .p1, color: .success, bold: true)
+                            HStack(spacing: 2) {
+                                ForEach((0..<4), id: \.self) { index in
+                                    Circle()
+                                        .fill(index == self.index ? Color.secondaryColor : Color.secondaryColor.opacity(0.5))
+                                        .frame(width: 10, height: 10)
+                                        .padding(.horizontal, 3)
+                                        .padding(.vertical, -120)
+
                                 }
                             }
-                            .padding(.vertical, 10)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
                         }
                     }
-                    .padding(EdgeInsets(top: -120, leading: 0, bottom: 20, trailing: 0))
+                    .padding(EdgeInsets(top: -130, leading: 0, bottom: 0, trailing: 0))
+                    .frame(height: 340)
+                    
+                    //Transactions
+                    Group {
+                        VStack(alignment: .leading) {
+                            CustomText(text: "Transactions", size: .p1, color: .secondaryColor, bold: true)
+                        }
+                        .padding(EdgeInsets(top: -120, leading: 0, bottom: 0, trailing: 0))
+
+                        VStack {
+                            ForEach((0..<10), id: \.self) { index in
+                                
+                                HStack(alignment: .center) {
+                                    Circle()
+                                        .fill(Color.secondaryColor)
+                                        .frame(width: 35, height: 35)
+                                        .overlay{
+                                            Image(systemName: "cart.fill")
+                                                .foregroundColor(Color.bgColor)
+                                        }
+                                    VStack(alignment: .leading) {
+                                        
+                                        CustomText(text: "Shopping", size: .p1, color: .secondaryColor, bold: true)
+                                        CustomText(text: "11 Jan 2022", size: .p2, color: .secondaryColor, bold: false)
+                                    }.padding(.horizontal, 8)
+                                    Spacer()
+                                    
+                                    if index % 2 == 0 {
+                                        CustomText(text: "- MYR 20.00", size: .p1, color: .error, bold: true)
+                                    } else {
+                                        CustomText(text: "+ MYR 20.00", size: .p1, color: .success, bold: true)
+                                    }
+                                }
+                                .padding(.vertical, 8)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        .padding(EdgeInsets(top: -120, leading: 0, bottom: 20, trailing: 0))
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
             }
-        }
-        .overlay {
-            CreateWalletView(showCreateWallet: self.$showWalletCreation)
-        }
         }
         //End Scroll View
     }
@@ -106,6 +103,8 @@ struct WalletView: View {
 
 struct WalletView_Previews: PreviewProvider {
     static var previews: some View {
-        WalletView()
+//        WalletView()
+        HomepageView()
+            .environmentObject(ModalControl())
     }
 }
