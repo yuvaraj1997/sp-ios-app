@@ -12,32 +12,32 @@ struct ProfileHomepage: View {
     private let screenWidth: Double = UIScreen.main.bounds.width
     private let screenHeight: Double = UIScreen.main.bounds.height
     
-    @State private var showPasswordChange: Bool = false
+    @EnvironmentObject var modalControl: ModalControl
     
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
-                GeometryReader { reader in
-                    Color.bgColor
-                        .frame(height: reader.safeAreaInsets.top, alignment: .top)
-                        .ignoresSafeArea()
-                }
-                Color.bgColor.edgesIgnoringSafeArea([.bottom])
+//                GeometryReader { reader in
+//                    Color.bgColor
+//                        .frame(height: reader.safeAreaInsets.top, alignment: .top)
+//                        .ignoresSafeArea()
+//                }
+//                Color.bgColor.edgesIgnoringSafeArea([.bottom])
                 VStack(spacing: 5) {
                     Avatar(image: "profile_picture", width: 125, height: 125)
-                    CustomText(text: "Preffered Name", size: .h3, color: .secondaryColor, bold: true)
+                    CustomText(text: "Preffered Name", size: .h3, bold: true)
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(alignment: .center, spacing: 0) {
                             
-                            CustomText(text: "Personal Information", size: .p1, color: .secondaryColor, bold: true)
+                            CustomText(text: "Personal Information", size: .p1, bold: true)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding()
                             //Email Address
                             HStack(alignment: .center) {
                                 Image(systemName: "envelope.fill")
                                     .foregroundColor(.secondaryColor)
-                                CustomText(text: "Email Address", size: .p1, color: .secondaryColor, bold: true)
+                                CustomText(text: "Email Address", size: .p1, bold: true)
                                     .frame(width: 140, alignment: .leading)
                                 Spacer()
                                 TextField("", text: .constant("yuvaraj.naidu@gmail.com"))
@@ -55,7 +55,7 @@ struct ProfileHomepage: View {
                             HStack(alignment: .center) {
                                 Image(systemName: "person.crop.circle.fill")
                                     .foregroundColor(.secondaryColor)
-                                CustomText(text: "Preferred Name", size: .p1, color: .secondaryColor, bold: true)
+                                CustomText(text: "Preferred Name", size: .p1, bold: true)
                                     .frame(width: 140, alignment: .leading)
                                 Spacer()
                                 TextField("", text: .constant("Name"))
@@ -72,7 +72,7 @@ struct ProfileHomepage: View {
                             HStack(alignment: .center) {
                                 Image(systemName: "person.crop.circle")
                                     .foregroundColor(.secondaryColor)
-                                CustomText(text: "Full Name", size: .p1, color: .secondaryColor, bold: true)
+                                CustomText(text: "Full Name", size: .p1, bold: true)
                                     .frame(width: 140, alignment: .leading)
                                 Spacer()
                                 TextField("", text: .constant("Name"))
@@ -87,7 +87,7 @@ struct ProfileHomepage: View {
                             .background(Color.black.opacity(0.5))
                             
                             
-                            CustomText(text: "Security", size: .p1, color: .secondaryColor, bold: true)
+                            CustomText(text: "Security", size: .p1, bold: true)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding()
                             
@@ -95,7 +95,7 @@ struct ProfileHomepage: View {
                             HStack(alignment: .center) {
                                 Image(systemName: "lock.circle.fill")
                                     .foregroundColor(.secondaryColor)
-                                CustomText(text: "Change Password", size: .p1, color: .secondaryColor, bold: true)
+                                CustomText(text: "Change Password", size: .p1, bold: true)
                                     .frame(width: 140, alignment: .leading)
                                 Spacer()
                                 Image(systemName: "chevron.right")
@@ -107,17 +107,17 @@ struct ProfileHomepage: View {
                             .overlay(Rectangle().frame(width: nil, height: 0.5, alignment: .bottom).foregroundColor(Color.gray), alignment: .bottom)
                             .background(Color.black.opacity(0.5))
                             .onTapGesture() {
-                                self.showPasswordChange.toggle()
+                                self.modalControl.showPasswordChangeForm.toggle()
                             }
                             
                             
                             Spacer()
                             CustomButton(label: "Save Changes", type: .primary, action: {})
                                 .frame(width: self.screenWidth, height: 60)
-                                .padding(.vertical, 10)
+                                .padding(.vertical, 3)
                             CustomButton(label: "Logout", type: .error, action: {})
                                 .frame(width: self.screenWidth, height: 60)
-                                .padding(.vertical, 10)
+                                .padding(.vertical, 3)
                                 
                         }
                         .frame(height: self.screenHeight - (geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom) - 150, alignment: .leading)
@@ -127,15 +127,17 @@ struct ProfileHomepage: View {
                 .padding(.vertical, 20)
             }
             .overlay {
-                ProfilePasswordChangeView(showPasswordChange: self.$showPasswordChange)
+                ProfilePasswordChangeView()
 
             }
         }
+        .preferredColorScheme(.dark)
     }
 }
 
 struct ProfileHomepage_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileHomepage()
+        HomepageView()
+            .environmentObject(ModalControl())
     }
 }

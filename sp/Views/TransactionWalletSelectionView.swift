@@ -17,14 +17,14 @@ struct TransactionWalletSelectionView: View {
     var body: some View {
         ZStack {
             if (self.showWalletSelection) {
-                Color.secondaryColor.opacity(0.7).transition(.opacity).ignoresSafeArea()
+                Color.bg_color.opacity(0.6).transition(.opacity).ignoresSafeArea()
                 VStack(spacing: 0) {
                     Rectangle().opacity(0.001).ignoresSafeArea()
                         .onTapGesture {
                             self.showWalletSelection.toggle()
                         }
                     VStack(alignment: .leading) {
-                        CustomText(text: "Select Wallet", size: .h4, color: .secondaryColor)
+                        CustomText(text: "Select Wallet", size: .h4)
                             .padding(.bottom, 10)
 
 
@@ -34,9 +34,9 @@ struct TransactionWalletSelectionView: View {
                                     HStack(alignment: .center) {
                                         Image(systemName: "creditcard")
                                             .font(.system(size: 28))
-                                            .foregroundColor(.secondaryColor)
+                                            .foregroundColor(.white)
                                             .frame(width: 50)
-                                        CustomText(text: "Wallet \(index)", size: .p1, color: .secondaryColor)
+                                        CustomText(text: "Wallet \(index)", size: .p1)
                                     }
                                     .padding(.vertical, 5)
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -51,7 +51,7 @@ struct TransactionWalletSelectionView: View {
 
                     .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 30) / 100, alignment: .topLeading)
                     .padding()
-                    .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bgColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+                    .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.tx_head_view).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
                 }
                 .transition(.move(edge: .bottom))
                 .ignoresSafeArea()
@@ -62,6 +62,8 @@ struct TransactionWalletSelectionView: View {
 
 struct TransactionWalletSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionWalletSelectionView(showWalletSelection: .constant(true))
+//        TransactionWalletSelectionView(showWalletSelection: .constant(true))
+        HomepageView()
+            .environmentObject(ModalControl())
     }
 }

@@ -19,14 +19,14 @@ struct TransactionCategorySelectionView: View {
     var body: some View {
         ZStack {
             if (self.showCategorySelection) {
-                Color.secondaryColor.opacity(0.7).transition(.opacity).ignoresSafeArea()
+                Color.bg_color.opacity(0.6).transition(.opacity).ignoresSafeArea()
                 VStack(spacing: 0) {
                     Rectangle().opacity(0.001).ignoresSafeArea()
                         .onTapGesture {
                             self.showCategorySelection.toggle()
                         }
                     VStack(alignment: .leading) {
-                        CustomText(text: "Select Category", size: .h4, color: .secondaryColor)
+                        CustomText(text: "Select Category", size: .h4)
                             .padding(.bottom, 10)
 
                         ScrollView(.vertical, showsIndicators: false) {
@@ -35,7 +35,7 @@ struct TransactionCategorySelectionView: View {
                                     ForEach((1..<40), id: \.self) { index in
                                         VStack(alignment: .center) {
                                             Circle()
-                                                .fill(Color.secondaryColor)
+                                                .fill(Color.white)
                                                 .frame(width: 45, height: 45)
                                                 .overlay {
 
@@ -43,7 +43,7 @@ struct TransactionCategorySelectionView: View {
                                                     .font(.system(size: 20))
                                                     .foregroundColor(.bgColor)
                                                 }
-                                            CustomText(text: "Category \(index)", size: .p1, color: .secondaryColor)
+                                            CustomText(text: "Category \(index)", size: .p1)
                                         }
                                         .padding(.vertical, 5)
                                         .onTapGesture {
@@ -58,7 +58,7 @@ struct TransactionCategorySelectionView: View {
 
                     .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 30) / 100, alignment: .topLeading)
                     .padding()
-                    .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bgColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+                    .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.tx_head_view).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
                 }
                 .transition(.move(edge: .bottom))
                 .ignoresSafeArea()
@@ -69,6 +69,8 @@ struct TransactionCategorySelectionView: View {
 
 struct TransactionCategorySelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionCategorySelectionView(showCategorySelection: .constant(true))
+//        TransactionCategorySelectionView(showCategorySelection: .constant(true))
+        HomepageView()
+            .environmentObject(ModalControl())
     }
 }

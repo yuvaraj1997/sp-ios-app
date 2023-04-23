@@ -14,13 +14,28 @@ struct ContentView: View {
 
     
     var body: some View {
-        if self.isAuthenticated {
-            HomepageView()
-        } else {
-            if !self.getStartedClicked {
-                GetStartedView(getStartedClicked: self.$getStartedClicked)
+        ZStack {
+            if self.isAuthenticated {
+                HomepageView()
             } else {
-                LoginView()
+                if !self.getStartedClicked {
+                    GetStartedView(getStartedClicked: self.$getStartedClicked)
+                } else {
+                    LoginView()
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .keyboard){
+                Spacer()
+            }
+            ToolbarItem(placement: .keyboard) {
+                Button {
+                    hideKeyboard()
+                } label: {
+                    Image(systemName: "keyboard.chevron.compact.down")
+                        .foregroundColor(.secondaryColor)
+                }
             }
         }
     }

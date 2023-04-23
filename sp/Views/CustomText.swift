@@ -11,7 +11,7 @@ struct CustomText: View {
     
     var text: String
     var size: Size
-    var color: Color
+    var color: Color? = .white
     var bold: Bool = false
     
     func sizeValue() -> Double {
@@ -26,6 +26,8 @@ struct CustomText: View {
                 return 22
             case Size.h4:
                 return 20
+            case Size.h5:
+                return 16
             case Size.p1:
                 return 13
             case Size.p2:
@@ -47,6 +49,7 @@ enum Size {
   case h2
   case h3
   case h4
+  case h5
   case p1
   case p2
 }
@@ -54,5 +57,6 @@ enum Size {
 struct CustomText_Previews: PreviewProvider {
     static var previews: some View {
         CustomText(text: "Hello World!", size: .h1, color: .accentColor, bold: false)
+            .preferredColorScheme(.dark)
     }
 }

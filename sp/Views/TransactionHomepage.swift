@@ -20,21 +20,21 @@ struct TransactionHomepage: View {
     var body: some View {
         ZStack(alignment: .top) {
             GeometryReader { reader in
-                Color.primaryColor
+                Color.tx_head_view
                     .frame(height: reader.safeAreaInsets.top, alignment: .top)
                     .ignoresSafeArea()
             }
-            Color.bgColor.edgesIgnoringSafeArea([.bottom])
+            Color.bg_color.opacity(0.8).edgesIgnoringSafeArea([.bottom])
             
             
             VStack {
                 Spacer()
                 Circle()
-                    .fill(Color.primaryColor)
+                    .fill(Color.tx_head_view)
                     .frame(width: 50, height: 50)
                     .overlay{
                         Image(systemName: "plus")
-                            .foregroundColor(.secondaryColor)
+                            .foregroundColor(.white)
                     }
                     .onTapGesture {
                         self.modalControl.showTransactionForm.toggle()
@@ -52,8 +52,9 @@ struct TransactionHomepage: View {
                 WalletView()
                 
             }
-        }
-        .overlay {
+        }.overlay {
+            CreateWalletView()
+            TransactionFormView()
         }
     }
 }

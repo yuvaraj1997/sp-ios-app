@@ -15,6 +15,8 @@ struct HomepageView: View {
     private let screenWidth: Double = UIScreen.main.bounds.width
     private let screenHeight: Double = UIScreen.main.bounds.height
     
+    @EnvironmentObject var modalControl: ModalControl
+    
 
     init() {
 //        UITabBar.appearance().backgroundColor = UIColor(red: 0.84, green: 0.90, blue: 0.89, alpha: 1.00)
@@ -22,9 +24,9 @@ struct HomepageView: View {
     
     func getColor(expectedModel: HomepageModels) -> Color {
         if (expectedModel == self.currModel) {
-            return Color.primaryColor
+            return Color.white
         }
-        return Color.bgColor
+        return Color.white.opacity(0.4)
     }
     
     
@@ -51,39 +53,39 @@ struct HomepageView: View {
                         }
                     })
             }
-            HStack(alignment: .center) {
+            if (!self.modalControl.isAnyModalOpen()) {
                 HStack(alignment: .center) {
-                    VStack {
-                        Image(systemName: "house")
-                            .foregroundColor(self.getColor(expectedModel: .TRANSACTION_HOME))
-                            .frame(width: 10, height: 10)
-                        CustomText(text: "Home", size: .p1, color: self.getColor(expectedModel: .TRANSACTION_HOME), bold: true)
+                    HStack(alignment: .center) {
+                        VStack {
+                            Image(systemName: "house.fill")
+                                .foregroundColor(self.getColor(expectedModel: .TRANSACTION_HOME))
+                                .frame(width: 10, height: 10)
+    //                        CustomText(text: "Home", size: .p1, color: self.getColor(expectedModel: .TRANSACTION_HOME), bold: true)
+                        }
+                        .onTapGesture {
+                            self.currModel = .TRANSACTION_HOME
+                        }
+                        Spacer()
+                        VStack {
+                            Image(systemName: "person.circle.fill")
+                                .foregroundColor(self.getColor(expectedModel: .PROFILE_PAGE))
+                                .frame(width: 10, height: 10)
+    //                        CustomText(text: "Profile", size: .p1, color: self.getColor(expectedModel: .PROFILE_PAGE), bold: true)
+                        }
+                        .onTapGesture {
+                            self.currModel = .PROFILE_PAGE
+                        }
                     }
-                    .onTapGesture {
-                        self.currModel = .TRANSACTION_HOME
-                    }
-                    Spacer()
-                    VStack {
-                        Image(systemName: "person.circle")
-                            .foregroundColor(self.getColor(expectedModel: .PROFILE_PAGE))
-                            .frame(width: 10, height: 10)
-                        CustomText(text: "Profile", size: .p1, color: self.getColor(expectedModel: .PROFILE_PAGE), bold: true)
-                    }
-                    .onTapGesture {
-                        self.currModel = .PROFILE_PAGE
-                    }
+                    .frame(maxWidth: 250)
                 }
-                .frame(maxWidth: 250)
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: 50)
+                .background(Color.bg_color)
+                
             }
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: 50)
-            .background(Color.secondaryColor)
         }
         .animation(.easeInOut(duration: 0.4), value: self.currModel)
-        .overlay {
-            CreateWalletView()
-            TransactionFormView()
-        }
+        .preferredColorScheme(.dark)
     }
     
     enum HomepageModels{

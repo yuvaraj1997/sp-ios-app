@@ -25,7 +25,7 @@ struct CreateWalletView: View {
     var body: some View {
         ZStack {
             if (self.modalControl.showCreateWalletView) {
-                Color.secondaryColor.opacity(0.2).transition(.opacity).ignoresSafeArea()
+                Color.bg_color.opacity(0.6).transition(.opacity).ignoresSafeArea()
                 VStack(spacing: 0) {
                     VStack {
 
@@ -35,7 +35,7 @@ struct CreateWalletView: View {
                             }
                         VStack(alignment: .leading) {
                             HStack(alignment: .center) {
-                                CustomText(text: "Create a New Wallet", size: .h4, color: .secondaryColor)
+                                CustomText(text: "Create a New Wallet", size: .h4)
                                 Spacer()
                                 Image(systemName: "xmark")
                                     .font(.system(size: 20))
@@ -50,7 +50,7 @@ struct CreateWalletView: View {
                             ScrollView(.vertical, showsIndicators: false) {
                                 VStack(alignment: .center, spacing: 20) {
                                     VStack(alignment: .leading) {
-                                        CustomText(text: "Name", size: .p1, color: .secondaryColor)
+                                        CustomText(text: "Name", size: .p1)
                                         TextField("", text: self.$name)
                                             .font(.system(size: 13))
                                             .bold()
@@ -62,7 +62,7 @@ struct CreateWalletView: View {
                                     }
                                     
                                     VStack(alignment: .leading) {
-                                        CustomText(text: "Initial Balance", size: .p1, color: .secondaryColor)
+                                        CustomText(text: "Initial Balance", size: .p1)
                                         TextField("", text: self.$initialBalance)
                                             .numbersOnly(self.$initialBalance, includeDecimal: true)
                                             .font(.system(size: 13))
@@ -87,7 +87,7 @@ struct CreateWalletView: View {
                         .padding()
                         .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 40) / 100, alignment: .topLeading)
                         
-                        .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bgColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+                        .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bg_color).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding(.bottom, keyboardHandler.keyboardHeight)

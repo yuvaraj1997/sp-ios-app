@@ -11,7 +11,9 @@ struct ProfilePasswordChangeView: View {
     private let screenWidth: Double = UIScreen.main.bounds.width
     private let screenHeight: Double = UIScreen.main.bounds.height
     
-    @Binding var showPasswordChange: Bool
+    @StateObject private var keyboardHandler = KeyboardHandler()
+    
+    @EnvironmentObject var modalControl: ModalControl
     
     @State private var currentPassword: String = ""
     @State private var newPassword: String = ""
@@ -25,22 +27,22 @@ struct ProfilePasswordChangeView: View {
     
     var body: some View {
         ZStack {
-            if (self.showPasswordChange) {
-                Color.secondaryColor.opacity(0.7).transition(.opacity).ignoresSafeArea()
+            if (self.modalControl.showPasswordChangeForm) {
+                Color.bg_color.opacity(0.6).transition(.opacity).ignoresSafeArea()
                 VStack(spacing: 0) {
                     Rectangle().opacity(0.001).ignoresSafeArea()
                         .onTapGesture {
-                            self.showPasswordChange.toggle()
+                            self.modalControl.showPasswordChangeForm.toggle()
                         }
                     VStack(alignment: .leading) {
                         HStack(alignment: .center) {
-                            CustomText(text: "Change Password", size: .h4, color: .secondaryColor)
+                            CustomText(text: "Change Password", size: .h4)
                             Spacer()
                             Image(systemName: "xmark")
                                 .font(.system(size: 20))
                                 .foregroundColor(.secondaryColor)
                                 .onTapGesture {
-                                    self.showPasswordChange.toggle()
+                                    self.modalControl.showPasswordChangeForm.toggle()
                                 }
                         }
                         .padding(.bottom, 10)
@@ -49,7 +51,7 @@ struct ProfilePasswordChangeView: View {
                         ScrollView(.vertical, showsIndicators: false) {
                             VStack(alignment: .center, spacing: 20) {
                                 VStack(alignment: .leading) {
-                                    CustomText(text: "Current Password", size: .p1, color: .secondaryColor)
+                                    CustomText(text: "Current Password", size: .p1)
                                     SecureField("", text: self.$currentPassword)
                                         .font(.system(size: 13))
                                         .bold()
@@ -61,7 +63,7 @@ struct ProfilePasswordChangeView: View {
                                 }
                                 
                                 VStack(alignment: .leading) {
-                                    CustomText(text: "New Password", size: .p1, color: .secondaryColor)
+                                    CustomText(text: "New Password", size: .p1)
                                     SecureField("", text: self.$newPassword)
                                         .font(.system(size: 13))
                                         .bold()
@@ -76,7 +78,7 @@ struct ProfilePasswordChangeView: View {
                                 }
                                 
                                 VStack(alignment: .leading) {
-                                    CustomText(text: "Confirm New Password", size: .p1, color: .secondaryColor)
+                                    CustomText(text: "Confirm New Password", size: .p1)
                                     SecureField("", text: self.$confirmNewPassword)
                                         .font(.system(size: 13))
                                         .bold()
@@ -92,7 +94,7 @@ struct ProfilePasswordChangeView: View {
                                 Spacer()
                                 CustomButton(label: "Update Password", type: .primary, isDisabled: self.isFormComplete(), action: {
                                     
-                                    self.showPasswordChange.toggle()
+                                    self.modalControl.showPasswordChangeForm.toggle()
                                 })
                                     .frame(height: 50)
                             }
@@ -102,12 +104,13 @@ struct ProfilePasswordChangeView: View {
 
                     .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 60) / 100, alignment: .topLeading)
                     .padding()
-                    .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bgColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+                    .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bg_color).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
                 }
+                .padding(.bottom, keyboardHandler.keyboardHeight)
                 .transition(.move(edge: .bottom))
                 .ignoresSafeArea()
             }
-        }.animation(.easeInOut(duration: 0.8), value: self.showPasswordChange)
+        }.animation(.easeInOut(duration: 0.8), value: self.modalControl.showPasswordChangeForm)
     }
     
     func isNewPasswordCorrect() -> Bool {
@@ -129,6 +132,8 @@ struct ProfilePasswordChangeView: View {
 
 struct ProfilePasswordChangeView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePasswordChangeView(showPasswordChange: .constant(true))
+//        ProfilePasswordChangeView(showPasswordChange: .constant(true))
+        HomepageView()
+            .environmentObject(ModalControl())
     }
 }

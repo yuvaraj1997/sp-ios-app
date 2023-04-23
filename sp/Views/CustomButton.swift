@@ -14,7 +14,7 @@ struct CustomButton: View {
     var isDisabled: Bool = false
     var isLoading: Bool = false
     var isNavigationButton: Bool = false
-    var textSize: Size? = .h4
+    var textSize: Size? = .h5
     var action: (() -> Void) /// use closure for callback
     
     func isDisabledOpacityValue() -> Double {
@@ -26,18 +26,18 @@ struct CustomButton: View {
     
     func backgroundColor() -> Color {
         if (self.type == .primary) {
-            return Color.primaryColor
+            return Color.white
         } else if (self.type == .secondary) {
-            return Color.secondaryColor
+            return Color.black
         }
         return Color.error
     }
     
     func textForegroundColor() -> Color {
         if (self.type == .primary) {
-            return Color.secondaryColor
+            return Color.black
         } else if (self.type == .secondary) {
-            return Color.primaryColor
+            return Color.white
         }
         return Color.secondaryColor
     }
@@ -61,12 +61,20 @@ struct CustomButton: View {
                     
                 }
             }
-            .frame(maxWidth: 350, maxHeight: 60)
+            .frame(maxWidth: 350, maxHeight: 30)
         }
+        .padding(12)
         .disabled(self.isDisabledValue())
         .background(self.backgroundColor())
         .opacity(self.isDisabledOpacityValue())
-        .cornerRadius(15)
+//        .tint(.indigo)
+        .overlay{
+            if (self.type == .secondary) {
+                RoundedRectangle(cornerRadius: 13)
+                    .stroke(.white, lineWidth: 1)
+            }
+        }
+        .cornerRadius(13)
     }
 }
 
@@ -78,7 +86,7 @@ enum ButtonType {
 
 struct CustomButton_Previews: PreviewProvider {
     static var previews: some View {
-        CustomButton(label: "Label",
+        CustomButton(label: "Save changes",
                      type: .primary,
                      isDisabled: false,
                      isLoading: false,
@@ -86,5 +94,6 @@ struct CustomButton_Previews: PreviewProvider {
         {
             print("Clicked")
         }
+        .preferredColorScheme(.dark)
     }
 }

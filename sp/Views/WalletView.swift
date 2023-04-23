@@ -16,11 +16,11 @@ struct WalletView: View {
     var body: some View {
         ZStack {
             //Wallets & Transactions
-            ScrollView(.vertical) {
+            ScrollView(.vertical, showsIndicators: false) {
                 Group {
                     //Wallets
                     VStack(alignment: .leading) {
-                        CustomText(text: "Wallets", size: .p1, color: .secondaryColor, bold: true)
+                        CustomText(text: "Wallets", size: .p1, bold: true)
                     }
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -58,7 +58,7 @@ struct WalletView: View {
                     //Transactions
                     Group {
                         VStack(alignment: .leading) {
-                            CustomText(text: "Transactions", size: .p1, color: .secondaryColor, bold: true)
+                            CustomText(text: "Transactions", size: .p1, bold: true)
                         }
                         .padding(EdgeInsets(top: -120, leading: 0, bottom: 0, trailing: 0))
 
@@ -75,8 +75,8 @@ struct WalletView: View {
                                         }
                                     VStack(alignment: .leading) {
                                         
-                                        CustomText(text: "Shopping", size: .p1, color: .secondaryColor, bold: true)
-                                        CustomText(text: "11 Jan 2022", size: .p2, color: .secondaryColor, bold: false)
+                                        CustomText(text: "Shopping", size: .p1, bold: true)
+                                        CustomText(text: "11 Jan 2022", size: .p2, bold: false)
                                     }.padding(.horizontal, 8)
                                     Spacer()
                                     

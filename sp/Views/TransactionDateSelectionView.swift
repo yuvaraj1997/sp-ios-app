@@ -18,7 +18,7 @@ struct TransactionDateSelectionView: View {
     var body: some View {
             ZStack {
                 if (self.showTransactionDateSelection) {
-                    Color.secondaryColor.opacity(0.7).transition(.opacity).ignoresSafeArea()
+                    Color.bg_color.opacity(0.6).transition(.opacity).ignoresSafeArea()
                     VStack(spacing: 0) {
                         Rectangle().opacity(0.001).ignoresSafeArea()
                             .onTapGesture {
@@ -26,11 +26,11 @@ struct TransactionDateSelectionView: View {
                             }
                         VStack(alignment: .leading) {
                             HStack(alignment: .center) {
-                                CustomText(text: "Select Transaction Date", size: .h4, color: .secondaryColor)
+                                CustomText(text: "Select Transaction Date", size: .h4)
                                 Spacer()
                                 Image(systemName: "checkmark.circle.fill")
                                     .font(.system(size: 18))
-                                    .foregroundColor(.secondaryColor)
+                                    .foregroundColor(.white)
                                     .onTapGesture {
                                         self.showTransactionDateSelection.toggle()
                                     }
@@ -43,12 +43,13 @@ struct TransactionDateSelectionView: View {
                             )
                             .datePickerStyle(.graphical)
                             .labelsHidden()
-                            .colorScheme(.dark)
-                            .accentColor(.primaryColor)
+//                            .colorScheme(.dark)
+                            .accentColor(.orange)
+//                            .foregroundColor(.red)
                         }
                         .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 50) / 100, alignment: .topLeading)
                         .padding()
-                        .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.bgColor).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+                        .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.tx_head_view).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
                     }
                     .transition(.move(edge: .bottom))
                     .ignoresSafeArea()
@@ -59,6 +60,8 @@ struct TransactionDateSelectionView: View {
 
 struct TransactionDateSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionDateSelectionView(showTransactionDateSelection: .constant(true), date: .constant(Date.now))
+//        TransactionDateSelectionView(showTransactionDateSelection: .constant(true), date: .constant(Date.now))
+        HomepageView()
+            .environmentObject(ModalControl())
     }
 }

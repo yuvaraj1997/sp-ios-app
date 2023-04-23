@@ -18,26 +18,26 @@ struct CardView: View {
     var body: some View {
         if !emptyCard {
             VStack(alignment: .leading){
-                CustomText(text: "Bank A", size: .p1, color: .bgColor)
-                CustomText(text: "MYR 1,200.00", size: .h4, color: .bgColor, bold: true)
+                CustomText(text: "Bank A", size: .p1, color: .bg_color)
+                CustomText(text: "MYR 1,200.00", size: .h4, color: .bg_color, bold: true)
                     .frame(alignment: .center)
                     .frame(maxWidth: .infinity, maxHeight: 95)
             }
             .padding(EdgeInsets(top: 15, leading: 25, bottom: 15, trailing: 25))
             .frame(maxWidth: self.screenWidth - 40, maxHeight: 184, alignment: .topLeading)
             .background(RoundedRectangle(cornerRadius: 30)
-                .fill(Color.secondaryColor.gradient)
-                .shadow(color: Color.secondaryColor, radius: 2))
+                .fill(Color.white.gradient)
+                .shadow(color: Color.white, radius: 2))
         } else {
             VStack(alignment: .leading){
-                CustomText(text: "+", size: .h4, color: .secondaryColor, bold: true)
+                CustomText(text: "+", size: .h4, bold: true)
                     .frame(alignment: .center)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .padding(EdgeInsets(top: 15, leading: 25, bottom: 15, trailing: 25))
             .frame(maxWidth: self.screenWidth - 40, maxHeight: 184, alignment: .topLeading)
             .background(RoundedRectangle(cornerRadius: 30)
-                .strokeBorder(Color.secondaryColor, style: StrokeStyle(lineWidth: 4, dash: [10]))
+                .strokeBorder(Color.white, style: StrokeStyle(lineWidth: 2, dash: [8]))
             )
             .onTapGesture {
                 self.action()
@@ -48,6 +48,7 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(action: {})
+        HomepageView()
+            .environmentObject(ModalControl())
     }
 }
