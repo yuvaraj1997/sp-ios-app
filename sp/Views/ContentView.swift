@@ -19,6 +19,7 @@ struct ContentView: View {
         ZStack {
             if self.authModel.isAunthenticated {
                 HomepageView()
+                    
             } else {
                 if !self.getStartedClicked {
                     GetStartedView(getStartedClicked: self.$getStartedClicked)
