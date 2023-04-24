@@ -9,13 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var getStartedClicked: Bool = false
-    @State var isAuthenticated: Bool = true
+    @State var getStartedClicked: Bool = true
+    
+    
+    @EnvironmentObject var authModel: AuthModel
 
     
     var body: some View {
         ZStack {
-            if self.isAuthenticated {
+            if self.authModel.isAunthenticated {
                 HomepageView()
             } else {
                 if !self.getStartedClicked {
@@ -45,5 +47,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(ModalControl())
+            .environmentObject(AuthModel())
     }
 }

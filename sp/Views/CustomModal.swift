@@ -25,12 +25,12 @@ struct CustomModal: View {
     var body: some View {
         if self.show {
             ZStack {
-                Color.primary.edgesIgnoringSafeArea(.all).opacity(0.65)
+                Color.black.edgesIgnoringSafeArea(.all).opacity(0.65)
                 
                 VStack {
-                    CustomText(text: self.title, size: .p1, color: .secondaryColor, bold: true)
+                    CustomText(text: self.title, size: .p1, bold: true)
                     Divider()
-                    CustomText(text: self.description, size: .p2, color: .secondaryColor)
+                    CustomText(text: self.description, size: .p2)
                         .multilineTextAlignment(.center)
                     Divider()
                     
@@ -76,12 +76,12 @@ struct CustomModal: View {
      
                 }
                 .padding()
-                .background(Color.accentColor)
+                .background(Color.tx_head_view)
                 .frame(width: screenWidth - 80)
                 .cornerRadius(20) /// make the background rounded
                 .overlay( /// apply a rounded border
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.accentColor, lineWidth: 2)
+                        .stroke(Color.tx_head_view, lineWidth: 2)
                 )
             }
         }

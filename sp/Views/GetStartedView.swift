@@ -24,14 +24,12 @@ struct GetStartedView: View {
                     //Title
                     CustomText(text: "EZ. PZ.",
                                size: .h1,
-                               color: .secondaryColor,
                                bold: true)
                     
                     
                     //Sub
                     CustomText(text: "Start tracking your spending now.\nHassle free.",
-                               size: .p1,
-                               color: .secondaryColor)
+                               size: .p1)
                     .multilineTextAlignment(.center)
                  
                     //Button

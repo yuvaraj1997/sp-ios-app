@@ -11,11 +11,13 @@ import SwiftUI
 struct spApp: App {
 
     @StateObject var modalControl = ModalControl()
+    @StateObject var authModel = AuthModel()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(modalControl)
+                .environmentObject(authModel)
         }
     }
 }

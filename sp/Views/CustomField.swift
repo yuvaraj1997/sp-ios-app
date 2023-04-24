@@ -17,7 +17,7 @@ struct CustomField: View {
     var hint: String = ""
     
     func renderField() -> some View {
-        let prompt = Text(self.label).foregroundColor(.accentColor)
+        let prompt = Text(self.label).foregroundColor(.black)
         var view: AnyView = AnyView(TextField(self.label, text: self.$val, prompt: prompt).textCase(.none))
         
         if type == .SECURE_FIELD {
@@ -43,21 +43,21 @@ struct CustomField: View {
             return view.foregroundColor(Color.error)
         }
         
-        return view.foregroundColor(.secondaryColor)
+        return view.foregroundColor(.white)
     }
     
     func colorBackground() -> Color {
         if self.isError {
             return Color.error
         }
-        return Color.secondaryColor
+        return Color.white
     }
     
     func textColor() -> Color {
         if self.isError {
             return Color.secondaryColor
         }
-        return Color.accentColor
+        return Color.black
     }
     
     var body: some View {
@@ -71,7 +71,7 @@ struct CustomField: View {
             }
             
             if self.hint != "" {
-                CustomText(text: self.hint, size: .p2, color: .secondaryColor)
+                CustomText(text: self.hint, size: .p2, color: .white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
             }
@@ -95,6 +95,6 @@ struct CustomField_Previews: PreviewProvider {
             val: .constant("1200,00"),
             hint: "test"
         )
-        .background(Color.accentColor)
+        .preferredColorScheme(.dark)
     }
 }

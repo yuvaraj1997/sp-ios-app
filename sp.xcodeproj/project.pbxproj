@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2070F2E29F61A7A00667E67 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2070F2D29F61A7A00667E67 /* AuthModel.swift */; };
 		F23C448629E582BD0054982E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C448529E582BD0054982E /* File.swift */; };
 		F23C448829E582D10054982E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C448729E582D10054982E /* View.swift */; };
 		F23C448B29E59ACB0054982E /* PeriodSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C448A29E59ACB0054982E /* PeriodSelectionView.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F2070F2D29F61A7A00667E67 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		F23C448529E582BD0054982E /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F23C448729E582D10054982E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		F23C448A29E59ACB0054982E /* PeriodSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectionView.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				F23C448D29E59BCD0054982E /* Option.swift */,
 				F23C44AB29EB880D0054982E /* ModalControl.swift */,
 				F23C44B029EB9FE20054982E /* KeyboardHandler.swift */,
+				F2070F2D29F61A7A00667E67 /* AuthModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				F2FD8E4029E3A2A900670000 /* LoginView.swift in Sources */,
 				F23C44A129E8463F0054982E /* TransactionDateSelectionView.swift in Sources */,
 				F2FD8E5D29E446B900670000 /* HomepageView.swift in Sources */,
+				F2070F2E29F61A7A00667E67 /* AuthModel.swift in Sources */,
 				F23C44A329E847A60054982E /* TransactionHomepage.swift in Sources */,
 				F2FD8E5F29E452A400670000 /* Avatar.swift in Sources */,
 				F2FD8E4629E3C8C000670000 /* ForgotPasswordView.swift in Sources */,

@@ -10,7 +10,7 @@ import Combine
 
 struct HomepageView: View {
     
-    @State var currModel: HomepageModels = .TRANSACTION_HOME
+    @State var currModel: HomepageModels = .PROFILE_PAGE
     
     private let screenWidth: Double = UIScreen.main.bounds.width
     private let screenHeight: Double = UIScreen.main.bounds.height
