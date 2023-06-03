@@ -6,3 +6,18 @@
 //
 
 import Foundation
+
+struct ErrorResponse: Hashable, Codable, Error {
+    
+    var status: CommonResponse
+    var error: CommonResponse?
+    var additionalProperties: [String : String]?
+
+    struct CommonResponse: Hashable, Codable {
+        var code: Int
+        var message: String
+    }
+    
+}
+
+

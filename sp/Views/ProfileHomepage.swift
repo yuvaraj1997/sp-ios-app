@@ -14,8 +14,39 @@ struct ProfileHomepage: View {
     
     @State var profileHeightCalculator: Double = 0
     
+    @State var isLoading: Bool = false
+    
     @EnvironmentObject var modalControl: ModalControl
     @EnvironmentObject var authModel: AuthModel
+    
+    let authService = AuthService()
+    
+    func invokeLogout() {
+        self.isLoading.toggle()
+        authService.logout() { result in
+            switch result {
+            case .success(_):
+                self.isLoading.toggle()
+                self.authModel.isAunthenticated.toggle()
+            case .failure(let error):
+                var message = ""
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+                        message = error.error!.message
+                    }
+                }
+                
+                print(message)
+                
+                self.isLoading.toggle()
+            }
+        }
+    }
     
     var body: some View {
         VStack(spacing: 5) {
@@ -128,8 +159,8 @@ struct ProfileHomepage: View {
             CustomButton(label: "Save Changes", type: .primary, action: {})
                 .frame(width: self.screenWidth, height: 60)
                 .padding(.vertical, 3)
-            CustomButton(label: "Logout", type: .error, action: {
-                self.authModel.isAunthenticated.toggle()
+            CustomButton(label: "Logout", type: .error, isLoading: self.isLoading, action: {
+                invokeLogout()
             })
             .frame(width: self.screenWidth, height: 60)
             .padding(.vertical, 3)

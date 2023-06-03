@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		F2070F2E29F61A7A00667E67 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2070F2D29F61A7A00667E67 /* AuthModel.swift */; };
+		F2070F3229F8212900667E67 /* TransactionFrequencySelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2070F3129F8212900667E67 /* TransactionFrequencySelection.swift */; };
+		F20C616E2A24F25B00F67AF6 /* SignUpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C616D2A24F25B00F67AF6 /* SignUpService.swift */; };
+		F20C61702A257A1A00F67AF6 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C616F2A257A1A00F67AF6 /* ErrorResponse.swift */; };
+		F20C61722A2648C500F67AF6 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20C61712A2648C500F67AF6 /* APIClient.swift */; };
 		F23C448629E582BD0054982E /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C448529E582BD0054982E /* File.swift */; };
 		F23C448829E582D10054982E /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C448729E582D10054982E /* View.swift */; };
 		F23C448B29E59ACB0054982E /* PeriodSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C448A29E59ACB0054982E /* PeriodSelectionView.swift */; };
@@ -28,6 +32,9 @@
 		F23C44AC29EB880D0054982E /* ModalControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44AB29EB880D0054982E /* ModalControl.swift */; };
 		F23C44AF29EB8F070054982E /* TransactionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44AE29EB8F070054982E /* TransactionFormView.swift */; };
 		F23C44B129EB9FE20054982E /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44B029EB9FE20054982E /* KeyboardHandler.swift */; };
+		F288B36D2A2787C5009C9A20 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288B36C2A2787C5009C9A20 /* ForgotPasswordService.swift */; };
+		F288B36F2A278BC0009C9A20 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288B36E2A278BC0009C9A20 /* AuthService.swift */; };
+		F288B3712A278D93009C9A20 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288B3702A278D93009C9A20 /* TokenManager.swift */; };
 		F2FD330229E2595900A7A40B /* spApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330129E2595900A7A40B /* spApp.swift */; };
 		F2FD330429E2595900A7A40B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FD330329E2595900A7A40B /* ContentView.swift */; };
 		F2FD330629E2595A00A7A40B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2FD330529E2595A00A7A40B /* Assets.xcassets */; };
@@ -68,6 +75,10 @@
 
 /* Begin PBXFileReference section */
 		F2070F2D29F61A7A00667E67 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
+		F2070F3129F8212900667E67 /* TransactionFrequencySelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFrequencySelection.swift; sourceTree = "<group>"; };
+		F20C616D2A24F25B00F67AF6 /* SignUpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpService.swift; sourceTree = "<group>"; };
+		F20C616F2A257A1A00F67AF6 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		F20C61712A2648C500F67AF6 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		F23C448529E582BD0054982E /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F23C448729E582D10054982E /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		F23C448A29E59ACB0054982E /* PeriodSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodSelectionView.swift; sourceTree = "<group>"; };
@@ -88,6 +99,9 @@
 		F23C44AB29EB880D0054982E /* ModalControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalControl.swift; sourceTree = "<group>"; };
 		F23C44AE29EB8F070054982E /* TransactionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFormView.swift; sourceTree = "<group>"; };
 		F23C44B029EB9FE20054982E /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
+		F288B36C2A2787C5009C9A20 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
+		F288B36E2A278BC0009C9A20 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		F288B3702A278D93009C9A20 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 		F2FD32FE29E2595900A7A40B /* sp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2FD330129E2595900A7A40B /* spApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = spApp.swift; sourceTree = "<group>"; };
 		F2FD330329E2595900A7A40B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -137,6 +151,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F2070F2F29F8208E00667E67 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				F23C448F29E5A4C60054982E /* CardView.swift */,
+				F23C449129E5A5200054982E /* WalletView.swift */,
+				F23C44A929E960110054982E /* CreateWalletView.swift */,
+			);
+			name = Wallet;
+			sourceTree = "<group>";
+		};
+		F2070F3029F820D000667E67 /* Heading */ = {
+			isa = PBXGroup;
+			children = (
+				F23C449329E5A5760054982E /* HomepageHeadingView.swift */,
+				F2070F3129F8212900667E67 /* TransactionFrequencySelection.swift */,
+			);
+			name = Heading;
+			sourceTree = "<group>";
+		};
 		F23C448429E582B20054982E /* Shapes */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,15 +189,10 @@
 		F23C449B29E8434A0054982E /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				F2070F3029F820D000667E67 /* Heading */,
+				F2070F2F29F8208E00667E67 /* Wallet */,
 				F23C44AD29EB8EC40054982E /* TransactionForm */,
-				F23C449129E5A5200054982E /* WalletView.swift */,
-				F23C449C29E843880054982E /* TransactionWalletSelectionView.swift */,
-				F23C449E29E845770054982E /* TransactionCategorySelectionView.swift */,
-				F23C44A029E8463F0054982E /* TransactionDateSelectionView.swift */,
 				F23C44A229E847A60054982E /* TransactionHomepage.swift */,
-				F23C448F29E5A4C60054982E /* CardView.swift */,
-				F23C44A929E960110054982E /* CreateWalletView.swift */,
-				F23C449329E5A5760054982E /* HomepageHeadingView.swift */,
 			);
 			name = Transaction;
 			sourceTree = "<group>";
@@ -181,6 +209,9 @@
 		F23C44AD29EB8EC40054982E /* TransactionForm */ = {
 			isa = PBXGroup;
 			children = (
+				F23C449C29E843880054982E /* TransactionWalletSelectionView.swift */,
+				F23C449E29E845770054982E /* TransactionCategorySelectionView.swift */,
+				F23C44A029E8463F0054982E /* TransactionDateSelectionView.swift */,
 				F23C44AE29EB8F070054982E /* TransactionFormView.swift */,
 			);
 			name = TransactionForm;
@@ -252,6 +283,7 @@
 				F23C44AB29EB880D0054982E /* ModalControl.swift */,
 				F23C44B029EB9FE20054982E /* KeyboardHandler.swift */,
 				F2070F2D29F61A7A00667E67 /* AuthModel.swift */,
+				F20C616F2A257A1A00F67AF6 /* ErrorResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -276,6 +308,11 @@
 		F2FD332F29E25A6C00A7A40B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F20C616D2A24F25B00F67AF6 /* SignUpService.swift */,
+				F20C61712A2648C500F67AF6 /* APIClient.swift */,
+				F288B36C2A2787C5009C9A20 /* ForgotPasswordService.swift */,
+				F288B36E2A278BC0009C9A20 /* AuthService.swift */,
+				F288B3702A278D93009C9A20 /* TokenManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -484,10 +521,12 @@
 				F23C449F29E845770054982E /* TransactionCategorySelectionView.swift in Sources */,
 				F2FD8E4029E3A2A900670000 /* LoginView.swift in Sources */,
 				F23C44A129E8463F0054982E /* TransactionDateSelectionView.swift in Sources */,
+				F2070F3229F8212900667E67 /* TransactionFrequencySelection.swift in Sources */,
 				F2FD8E5D29E446B900670000 /* HomepageView.swift in Sources */,
 				F2070F2E29F61A7A00667E67 /* AuthModel.swift in Sources */,
 				F23C44A329E847A60054982E /* TransactionHomepage.swift in Sources */,
 				F2FD8E5F29E452A400670000 /* Avatar.swift in Sources */,
+				F288B3712A278D93009C9A20 /* TokenManager.swift in Sources */,
 				F2FD8E4629E3C8C000670000 /* ForgotPasswordView.swift in Sources */,
 				F23C449A29E78FE00054982E /* NumbersOnlyViewModifier.swift in Sources */,
 				F23C449029E5A4C60054982E /* CardView.swift in Sources */,
@@ -503,12 +542,17 @@
 				F23C449829E67D150054982E /* Numeric.swift in Sources */,
 				F2FD8E3B29E27DB400670000 /* Color.swift in Sources */,
 				F23C44B129EB9FE20054982E /* KeyboardHandler.swift in Sources */,
+				F20C616E2A24F25B00F67AF6 /* SignUpService.swift in Sources */,
 				F2FD330229E2595900A7A40B /* spApp.swift in Sources */,
 				F2FD8E3D29E3A20C00670000 /* GetStartedView.swift in Sources */,
 				F23C449D29E843880054982E /* TransactionWalletSelectionView.swift in Sources */,
 				F23C44AC29EB880D0054982E /* ModalControl.swift in Sources */,
 				F23C448E29E59BCD0054982E /* Option.swift in Sources */,
 				F23C449429E5A5760054982E /* HomepageHeadingView.swift in Sources */,
+				F288B36D2A2787C5009C9A20 /* ForgotPasswordService.swift in Sources */,
+				F288B36F2A278BC0009C9A20 /* AuthService.swift in Sources */,
+				F20C61722A2648C500F67AF6 /* APIClient.swift in Sources */,
+				F20C61702A257A1A00F67AF6 /* ErrorResponse.swift in Sources */,
 				F23C44AA29E960110054982E /* CreateWalletView.swift in Sources */,
 				F23C448B29E59ACB0054982E /* PeriodSelectionView.swift in Sources */,
 			);
@@ -805,7 +849,7 @@
 				F2FD332129E2595A00A7A40B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		F2FD332229E2595A00A7A40B /* Build configuration list for PBXNativeTarget "sp" */ = {
 			isa = XCConfigurationList;
@@ -814,7 +858,7 @@
 				F2FD332429E2595A00A7A40B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		F2FD332529E2595A00A7A40B /* Build configuration list for PBXNativeTarget "spTests" */ = {
 			isa = XCConfigurationList;
@@ -823,7 +867,7 @@
 				F2FD332729E2595A00A7A40B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		F2FD332829E2595A00A7A40B /* Build configuration list for PBXNativeTarget "spUITests" */ = {
 			isa = XCConfigurationList;
@@ -832,7 +876,7 @@
 				F2FD332A29E2595A00A7A40B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

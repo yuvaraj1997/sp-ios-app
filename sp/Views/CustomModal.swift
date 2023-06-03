@@ -15,7 +15,7 @@ struct CustomModal: View {
     var alertText: String?
     var decisionCancelText: String?
     var decisionProceedText: String?
-    var decisionProceedAction: Void?
+    var decisionProceedAction: (() -> Void)
     
     @Binding var show: Bool
     
@@ -41,6 +41,7 @@ struct CustomModal: View {
                             textSize: .p1,
                             action: {
                                 self.show.toggle()
+                                decisionProceedAction()
                             }
                         )
                         .frame(width: 110, height: 28)
@@ -63,10 +64,7 @@ struct CustomModal: View {
                                 type: .primary,
                                 textSize: .p1,
                                 action: {
-                                    if (nil != decisionProceedAction) {
-                                        decisionProceedAction
-                                        return
-                                    }
+                                    decisionProceedAction()
                                 }
                             )
                             .frame(width: 110, height: 28)
@@ -97,7 +95,11 @@ struct CustomModal_Previews: PreviewProvider {
     static var previews: some View {
         CustomModal(title: "Development",
                     description: "Description",
-                    type: .DECISION,
-                    show: .constant(true))
+                    type: .ALERT,
+                    decisionProceedAction: {
+                        print("hello")
+                    },
+                    show: .constant(true)
+        )
     }
 }

@@ -9,17 +9,25 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.presentationMode) var presentationMode
     
-    @State private var fullName: String = ""
-    @State private var emailAddress: String = ""
-    @State private var password: String = ""
-    @State private var confirmPassword: String = ""
+    @State private var fullName: String = "Yuvaraj"
+    @State private var emailAddress: String = "new_user_6@gmail.com"
+    @State private var password: String = "Abc@123++"
+    @State private var confirmPassword: String = "Abc@123++"
     @State private var verificationCode: String = ""
     
+    @State private var userId: String = ""
+    
     @State private var errorModal: Bool = false
+    @State private var signUpCompleteModal: Bool = false
     
     @State private var signUpStep: SignUpStep = .INITIAL_STEP
+    
+    @State private var isLoading: Bool = false
+    @State private var errorMessage: String = ""
+    
+    let signUpService = SignUpService()
     
     func isFormComplete() -> Bool {
         return ("" == self.fullName || "" == self.emailAddress ||
@@ -28,14 +36,107 @@ struct SignUpView: View {
     }
     
     func signUp() {
-//        self.errorModal.toggle()
+        self.isLoading.toggle()
 //        self.navigationController?.pushViewController(verificationCodeView, animated: true)
-        self.signUpStep = .VERIFICATION
+        let user = SignUpRequest(fullName: self.fullName, emailAddress: self.emailAddress, password: self.password)
+        
+        signUpService.signUp(signUpRequest: user) { result in
+            switch result {
+            case .success(let user):
+                print("User created successfully: \(user)")
+                if (user.status == "VERIFICATION_PENDING") {
+                    self.userId = user.userId
+                    self.signUpStep = .VERIFICATION
+                }
+                self.isLoading.toggle()
+            case .failure(let error):
+                print("Error creating user: \(error)")
+                
+                var message = ""
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+//                        if (error.error!.code == 3003) {
+//                            self.isLoading.toggle()
+//                            self.signUpStep = .VERIFICATION
+//                            return;
+//                        }
+                        message = error.error!.message
+                    }
+                }
+                
+                showErrorModal(message: message)
+                
+                self.isLoading.toggle()
+            }
+        }
 
     }
     
+    func invokeResendVerification() {
+        self.isLoading.toggle()
+        signUpService.resendVerification(userId: self.userId) { result in
+            switch result {
+            case .success(_):
+                self.isLoading.toggle()
+            case .failure(let error):
+                var message = ""
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+                        message = error.error!.message
+                    }
+                }
+                
+                showErrorModal(message: message)
+                
+                self.isLoading.toggle()
+            }
+        }
+    }
+    
+    func showErrorModal(message: String = "Something happen please try again later.") {
+        self.errorMessage = message
+        if (message == "") {
+            self.errorMessage = "Something happen please try again later."
+        }
+        self.errorModal.toggle()
+    }
+    
     func verify(){
-        self.dismiss()
+        self.isLoading.toggle()
+        signUpService.verifyCode(body: ["userId": self.userId, "code": self.verificationCode]) { result in
+            switch result {
+            case .success(_):
+                self.isLoading.toggle()
+                self.signUpCompleteModal.toggle()
+            case .failure(let error):
+                var message = ""
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+                        message = error.error!.message
+                    }
+                }
+                
+                showErrorModal(message: message)
+                
+                self.isLoading.toggle()
+            }
+        }
+        
     }
     
     func dismiss(oneStepBack: Bool = false) {
@@ -43,7 +144,10 @@ struct SignUpView: View {
             self.signUpStep = .INITIAL_STEP
             return;
         }
-        self.presentationMode.wrappedValue.dismiss()
+//        self.presentationMode.wrappedValue.dismiss()
+        DispatchQueue.main.async {
+            self.presentationMode.wrappedValue.dismiss()
+        }
     }
     
     var body: some View {
@@ -62,10 +166,22 @@ struct SignUpView: View {
         .preferredColorScheme(.dark)
         .overlay{
             CustomModal(
-                title: "Email already exist",
-                description: "If you happen to forgot password, please proceed to do forgot password.",
+                title: "Error",
+                description: self.errorMessage,
                 type: .ALERT,
+                decisionProceedAction: {
+                    
+                },
                 show: self.$errorModal
+            )
+            CustomModal(
+                title: "Success",
+                description: "Sign Up Complete.",
+                type: .ALERT,
+                decisionProceedAction: {
+                    dismiss()
+                },
+                show: self.$signUpCompleteModal
             )
         }
         .navigationBarBackButtonHidden(true)
@@ -85,7 +201,7 @@ struct SignUpView: View {
             //Heading
             VStack(spacing: 7) {
                 //Title
-                CustomText(text: "Create new account",
+                CustomText(text: "Create new account \(UIDevice.current.model)",
                            size: .h2,
                            bold: true)
                 .padding(EdgeInsets(top: 50, leading: 0, bottom: 0, trailing: 0))
@@ -130,6 +246,7 @@ struct SignUpView: View {
                     label: "Sign Up",
                     type: .primary,
                     isDisabled: self.isFormComplete(),
+                    isLoading: self.isLoading,
                     action: {
                         self.signUp()
                     }
@@ -196,7 +313,9 @@ struct SignUpView: View {
                                    size: .p1,
                                    color: .blue)
                         .onTapGesture(perform: {
-                            self.presentationMode.wrappedValue.dismiss()
+                            if (!self.isLoading) {
+                                invokeResendVerification()
+                            }
                         })
                         CustomText(text: " to request new code.",
                                    size: .p1)
@@ -208,6 +327,7 @@ struct SignUpView: View {
                     label: "Verify",
                     type: .primary,
                     isDisabled: self.verificationCode == "",
+                    isLoading: self.isLoading,
                     action: {
                         self.verify()
                     }

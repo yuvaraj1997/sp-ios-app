@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomepageHeadingView: View {
     
-    @Binding var showPeriodSelection: Bool
+    @EnvironmentObject var modalControl: ModalControl
     
     var body: some View {
         
@@ -36,7 +36,7 @@ struct HomepageHeadingView: View {
                             .frame(width: 10, height: 5)
                     }
                     .onTapGesture(perform: {
-                        self.showPeriodSelection.toggle()
+                        self.modalControl.showPeriodSelection.toggle()
                     })
                     .padding(EdgeInsets(top: 3, leading: 6, bottom: 3, trailing: 6))
                     .background(Color.bg_color)

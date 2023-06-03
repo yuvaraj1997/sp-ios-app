@@ -11,9 +11,9 @@ struct ContentView: View {
     
     @State var getStartedClicked: Bool = true
     
-    
     @EnvironmentObject var authModel: AuthModel
-
+    
+    let tokenManager = TokenManager()
     
     var body: some View {
         ZStack {
@@ -39,6 +39,10 @@ struct ContentView: View {
                     Image(systemName: "keyboard.chevron.compact.down")
                         .foregroundColor(.secondaryColor)
                 }
+            }
+        }.onAppear {
+            if (tokenManager.isAvailable()) {
+                self.authModel.isAunthenticated.toggle()
             }
         }
     }

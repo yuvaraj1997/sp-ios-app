@@ -11,8 +11,6 @@ struct TransactionHomepage: View {
     
     @EnvironmentObject var modalControl: ModalControl
     
-    @State private var showPeriodSelection = false
-    
     private let screenWidth: Double = UIScreen.main.bounds.width
     private let screenHeight: Double = UIScreen.main.bounds.height
     
@@ -46,15 +44,12 @@ struct TransactionHomepage: View {
             
             VStack(spacing: 0) {
                 //Heading Card
-                HomepageHeadingView(showPeriodSelection: self.$showPeriodSelection)
+                HomepageHeadingView()
                 
                 //Wallet
                 WalletView()
                 
             }
-        }.overlay {
-            CreateWalletView()
-            TransactionFormView()
         }
     }
 }

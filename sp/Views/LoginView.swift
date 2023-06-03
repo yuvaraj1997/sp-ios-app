@@ -11,17 +11,68 @@ struct LoginView: View {
     
     @EnvironmentObject var authModel: AuthModel
     
-    @State private var emailAddress: String = "test@gmail.com"
-    @State private var password: String = "efe"
+    @State private var emailAddress: String = "new_user_6@gmail.com"
+    @State private var password: String = "Abc@123++"
     @State private var showInvalidCredentialModal: Bool = false
+    
+    @State private var isLoading: Bool = false
     
     func isFormComplete() -> Bool {
         return ("" == self.emailAddress || "" == self.password || !self.emailAddress.isValidEmail())
     }
     
+    let authService = AuthService()
+    
     func signIn(){
-//        self.showInvalidCredentialModal.toggle()
-        self.authModel.isAunthenticated.toggle()
+        self.isLoading.toggle()
+        authService.signIn(emailAddress: self.emailAddress, password: self.password) { result in
+            switch result {
+            case .success(_):
+                retriveSessionToken()
+            case .failure(let error):
+                var message = ""
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+                        message = error.error!.message
+                    }
+                }
+                
+                self.showInvalidCredentialModal.toggle()
+                
+                self.isLoading.toggle()
+            }
+        }
+    }
+    
+    func retriveSessionToken() {
+        authService.sessionToken() { result in
+            switch result {
+            case .success(_):
+                self.isLoading.toggle()
+                self.authModel.isAunthenticated.toggle()
+            case .failure(let error):
+                var message = ""
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+                        message = error.error!.message
+                    }
+                }
+                
+                self.showInvalidCredentialModal.toggle()
+                
+                self.isLoading.toggle()
+            }
+        }
     }
     
     var body: some View {
@@ -65,6 +116,7 @@ struct LoginView: View {
                         label: "Sign In",
                         type: .primary,
                         isDisabled: self.isFormComplete(),
+                        isLoading: self.isLoading,
                         action: {
                             self.signIn()
                         }
@@ -94,6 +146,9 @@ struct LoginView: View {
                 title: "Invalid Credentials",
                 description: "You entered an incorrect email address \nor password",
                 type: .ALERT,
+                decisionProceedAction: {
+                    
+                },
                 show: self.$showInvalidCredentialModal
             )
         }

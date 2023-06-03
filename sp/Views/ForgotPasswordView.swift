@@ -17,8 +17,14 @@ struct ForgotPasswordView: View {
     @State private var verificationCode: String = ""
     
     @State private var errorModal: Bool = false
+    @State private var successModal: Bool = false
+    @State private var isLoading: Bool = false
+    @State private var errorMessage: String = ""
+
     
     @State private var forgotPasswordStep: ForgotPasswordStep = .INITIAL_STEP
+    
+    let forgotPasswordService = ForgotPasswordService()
     
     func isFormComplete() -> Bool {
         return ("" == self.password ||
@@ -27,11 +33,71 @@ struct ForgotPasswordView: View {
     }
     
     func submit(){
-        self.forgotPasswordStep = .VERIFICATION
+        self.isLoading.toggle()
+        forgotPasswordService.initForgotPassword(emailAddress: self.emailAddress) { result in
+            switch result {
+            case .success(_):
+                self.forgotPasswordStep = .VERIFICATION
+                self.isLoading.toggle()
+            case .failure(let error):
+                print("Error forgot password: \(error)")
+                
+                var message = ""
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+                        message = error.error!.message
+                    }
+                }
+                
+                showErrorModal(message: message)
+                
+                self.isLoading.toggle()
+            }
+        }
+    }
+    
+    func showErrorModal(message: String = "Something happen please try again later.") {
+        self.errorMessage = message
+        if (message == "") {
+            self.errorMessage = "Something happen please try again later."
+        }
+        self.errorModal.toggle()
     }
     
     func reset(){
-        dismiss()
+        self.isLoading.toggle()
+        let body = ["code": self.verificationCode, "emailAddress": self.emailAddress, "password": self.password]
+        forgotPasswordService.updatePassword(body: body) { result in
+            switch result {
+            case .success(_):
+                self.forgotPasswordStep = .VERIFICATION
+                self.isLoading.toggle()
+                self.successModal.toggle()
+            case .failure(let error):
+                print("Error validate password: \(error)")
+                
+                var message = ""
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+                        message = error.error!.message
+                    }
+                }
+                
+                showErrorModal(message: message)
+                
+                self.isLoading.toggle()
+            }
+        }
     }
     
     func dismiss(oneStepBack: Bool = false) {
@@ -58,10 +124,22 @@ struct ForgotPasswordView: View {
         .preferredColorScheme(.dark)
         .overlay{
             CustomModal(
-                title: "Email already exist",
-                description: "If you happen to forgot password, please proceed to do forgot password.",
+                title: "Error",
+                description: self.errorMessage,
                 type: .ALERT,
+                decisionProceedAction: {
+                    
+                },
                 show: self.$errorModal
+            )
+            CustomModal(
+                title: "Success",
+                description: "Password reseted. Please proceed to login.",
+                type: .ALERT,
+                decisionProceedAction: {
+                    self.dismiss()
+                },
+                show: self.$successModal
             )
         }
         .navigationBarBackButtonHidden(true)
@@ -108,6 +186,7 @@ struct ForgotPasswordView: View {
                     label: "Submit",
                     type: .primary,
                     isDisabled: self.emailAddress == "" || !self.emailAddress.isValidEmail(),
+                    isLoading: self.isLoading,
                     action: {
                         self.submit()
                     }
@@ -178,7 +257,7 @@ struct ForgotPasswordView: View {
                                    size: .p1,
                                    color: .blue)
                         .onTapGesture(perform: {
-                            self.presentationMode.wrappedValue.dismiss()
+                            self.submit()
                         })
                         CustomText(text: " to request new code.",
                                    size: .p1)
@@ -190,6 +269,7 @@ struct ForgotPasswordView: View {
                     label: "Reset",
                     type: .primary,
                     isDisabled: self.isFormComplete(),
+                    isLoading: self.isLoading,
                     action: {
                         self.reset()
                     }
