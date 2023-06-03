@@ -16,10 +16,46 @@ struct ProfileHomepage: View {
     
     @State var isLoading: Bool = false
     
+    @StateObject private var profileService = ProfileService()
+    
     @EnvironmentObject var modalControl: ModalControl
     @EnvironmentObject var authModel: AuthModel
     
     let authService = AuthService()
+    
+    
+    func getProfile() {
+        self.isLoading.toggle()
+        profileService.get() { result in
+            switch result {
+            case .success(_):
+                self.isLoading.toggle()
+            case .failure(let error):
+                print("Error getting profile: \(error)")
+                
+                var message = ""
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+//                        if (error.error!.code == 3003) {
+//                            self.isLoading.toggle()
+//                            self.signUpStep = .VERIFICATION
+//                            return;
+//                        }
+                        message = error.error!.message
+                    }
+                }
+                
+//                showErrorModal(message: message)
+                
+                self.isLoading.toggle()
+            }
+        }
+    }
     
     func invokeLogout() {
         self.isLoading.toggle()
@@ -48,10 +84,17 @@ struct ProfileHomepage: View {
         }
     }
     
+    func replaceNullWithEmpty(val: String?) -> String {
+        if (nil == val){
+            return ""
+        }
+        return val!
+    }
+    
     var body: some View {
         VStack(spacing: 5) {
             Avatar(image: "profile_picture", width: 125, height: 125)
-            CustomText(text: "Preffered Name", size: .h3, bold: true)
+            CustomText(text: replaceNullWithEmpty(val: self.profileService.profileRes?.fullName), size: .h3, bold: true)
             Spacer()
             ScrollView(.vertical, showsIndicators: false) {
                 profileForm
@@ -72,6 +115,9 @@ struct ProfileHomepage: View {
             ProfilePasswordChangeView()
         }
         .preferredColorScheme(.dark)
+        .onAppear {
+            self.getProfile()
+        }
     }
     
     var profileForm: some View {
@@ -86,7 +132,7 @@ struct ProfileHomepage: View {
                 CustomText(text: "Email Address", size: .p1, bold: true)
                     .frame(width: 140, alignment: .leading)
                 Spacer()
-                TextField("", text: .constant("yuvaraj.naidu@gmail.com"))
+                TextField("", text: .constant(replaceNullWithEmpty(val: self.profileService.profileRes?.email)))
                     .font(.system(size: 13))
                     .foregroundColor(.secondaryColor.opacity(0.6))
                     .multilineTextAlignment(.trailing)
@@ -104,7 +150,7 @@ struct ProfileHomepage: View {
                 CustomText(text: "Preferred Name", size: .p1, bold: true)
                     .frame(width: 140, alignment: .leading)
                 Spacer()
-                TextField("", text: .constant("Name"))
+                TextField("", text: .constant(replaceNullWithEmpty(val: self.profileService.profileRes?.fullName)))
                     .font(.system(size: 13))
                     .foregroundColor(.secondaryColor)
                     .multilineTextAlignment(.trailing)
@@ -121,7 +167,7 @@ struct ProfileHomepage: View {
                 CustomText(text: "Full Name", size: .p1, bold: true)
                     .frame(width: 140, alignment: .leading)
                 Spacer()
-                TextField("", text: .constant("Name"))
+                TextField("", text: .constant(replaceNullWithEmpty(val: self.profileService.profileRes?.fullName)))
                     .font(.system(size: 13))
                     .foregroundColor(.secondaryColor)
                     .multilineTextAlignment(.trailing)

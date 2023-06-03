@@ -32,6 +32,8 @@
 		F23C44AC29EB880D0054982E /* ModalControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44AB29EB880D0054982E /* ModalControl.swift */; };
 		F23C44AF29EB8F070054982E /* TransactionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44AE29EB8F070054982E /* TransactionFormView.swift */; };
 		F23C44B129EB9FE20054982E /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44B029EB9FE20054982E /* KeyboardHandler.swift */; };
+		F28118DF2A2B30A20043507D /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28118DE2A2B30A20043507D /* ProfileService.swift */; };
+		F28118E12A2B30D90043507D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28118E02A2B30D90043507D /* Constants.swift */; };
 		F288B36D2A2787C5009C9A20 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288B36C2A2787C5009C9A20 /* ForgotPasswordService.swift */; };
 		F288B36F2A278BC0009C9A20 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288B36E2A278BC0009C9A20 /* AuthService.swift */; };
 		F288B3712A278D93009C9A20 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288B3702A278D93009C9A20 /* TokenManager.swift */; };
@@ -99,6 +101,8 @@
 		F23C44AB29EB880D0054982E /* ModalControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalControl.swift; sourceTree = "<group>"; };
 		F23C44AE29EB8F070054982E /* TransactionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFormView.swift; sourceTree = "<group>"; };
 		F23C44B029EB9FE20054982E /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
+		F28118DE2A2B30A20043507D /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		F28118E02A2B30D90043507D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F288B36C2A2787C5009C9A20 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
 		F288B36E2A278BC0009C9A20 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		F288B3702A278D93009C9A20 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 				F23C44B029EB9FE20054982E /* KeyboardHandler.swift */,
 				F2070F2D29F61A7A00667E67 /* AuthModel.swift */,
 				F20C616F2A257A1A00F67AF6 /* ErrorResponse.swift */,
+				F28118E02A2B30D90043507D /* Constants.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				F288B36C2A2787C5009C9A20 /* ForgotPasswordService.swift */,
 				F288B36E2A278BC0009C9A20 /* AuthService.swift */,
 				F288B3702A278D93009C9A20 /* TokenManager.swift */,
+				F28118DE2A2B30A20043507D /* ProfileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -514,6 +520,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F23C449629E67CF40054982E /* Formatter.swift in Sources */,
+				F28118DF2A2B30A20043507D /* ProfileService.swift in Sources */,
 				F23C448829E582D10054982E /* View.swift in Sources */,
 				F23C44A629E84B370054982E /* ProfileHomepage.swift in Sources */,
 				F2FD8E5329E3F9B100670000 /* CustomField.swift in Sources */,
@@ -535,6 +542,7 @@
 				F23C44AF29EB8F070054982E /* TransactionFormView.swift in Sources */,
 				F2FD8E5129E3E0A100670000 /* CustomModal.swift in Sources */,
 				F23C449229E5A5200054982E /* WalletView.swift in Sources */,
+				F28118E12A2B30D90043507D /* Constants.swift in Sources */,
 				F2FD8E3829E25CF900670000 /* CustomButton.swift in Sources */,
 				F23C448629E582BD0054982E /* File.swift in Sources */,
 				F2FD330429E2595900A7A40B /* ContentView.swift in Sources */,

@@ -12,7 +12,7 @@ class ForgotPasswordService {
     let FINANCIAL_MANAGEMENT_API = "http://localhost:8080"
     
     func initForgotPassword(emailAddress: String, completion: @escaping (Result<Data?, ErrorResponse>) -> Void) {
-        let url = URL(string: "\(FINANCIAL_MANAGEMENT_API)/v1/forgot-password")!
+        let url = URL(string: "\(Constants.FINANCIAL_MANAGEMENT_API)/v1/forgot-password")!
         
         let body = ["emailAddress" : emailAddress]
         // Decode the response
@@ -37,7 +37,7 @@ class ForgotPasswordService {
     }
     
     func updatePassword(body: [String: Any], completion: @escaping (Result<Data?, ErrorResponse>) -> Void) {
-        let url = URL(string: "\(FINANCIAL_MANAGEMENT_API)/v1/forgot-password/password")!
+        let url = URL(string: "\(Constants.FINANCIAL_MANAGEMENT_API)/v1/forgot-password/password")!
         
         // Decode the response
         let decoder = JSONDecoder()

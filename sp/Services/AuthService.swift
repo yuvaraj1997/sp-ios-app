@@ -19,12 +19,12 @@ struct TokenResponse: Decodable {
 
 class AuthService {
     
-    let FINANCIAL_MANAGEMENT_API = "http://localhost:8080"
+    
     
     let tokenManager = TokenManager()
     
     func signIn(emailAddress: String, password: String, completion: @escaping (Result<Data?, ErrorResponse>) -> Void) {
-        let url = URL(string: "\(FINANCIAL_MANAGEMENT_API)/api/user/login")!
+        let url = URL(string: "\(Constants.FINANCIAL_MANAGEMENT_API)/api/user/login")!
         
         let body = ["emailAddress" : emailAddress, "password": password, "deviceType": getDeviceName(), "ipAddress": "127.0.0.1"]
         
@@ -64,7 +64,7 @@ class AuthService {
             completion(.failure(ErrorResponse(status: ErrorResponse.CommonResponse(code: 403, message: "Session ended."))))
         }
         
-        let url = URL(string: "\(FINANCIAL_MANAGEMENT_API)/api/user/session?userId=\(userId!)")!
+        let url = URL(string: "\(Constants.FINANCIAL_MANAGEMENT_API)/api/user/session?userId=\(userId!)")!
         
         // Decode the response
         let decoder = JSONDecoder()
@@ -101,7 +101,7 @@ class AuthService {
             return
         }
         
-        let url = URL(string: "\(FINANCIAL_MANAGEMENT_API)/api/user/logout")!
+        let url = URL(string: "\(Constants.FINANCIAL_MANAGEMENT_API)/api/user/logout")!
         
         // Decode the response
         let decoder = JSONDecoder()

@@ -25,7 +25,7 @@ class SignUpService {
     let FINANCIAL_MANAGEMENT_API = "http://localhost:8080"
     
     func signUp(signUpRequest: SignUpRequest, completion: @escaping (Result<SignUpResponse, ErrorResponse>) -> Void) {
-        let url = URL(string: "\(FINANCIAL_MANAGEMENT_API)/v1/signup")!
+        let url = URL(string: "\(Constants.FINANCIAL_MANAGEMENT_API)/v1/signup")!
         
         let body = ["fullName" : signUpRequest.fullName, "emailAddress" : signUpRequest.emailAddress, "password" : signUpRequest.password]
         // Decode the response
@@ -51,7 +51,7 @@ class SignUpService {
     }
     
     func resendVerification(userId: String, completion: @escaping (Result<Data?, ErrorResponse>) -> Void) {
-        let url = URL(string: "\(FINANCIAL_MANAGEMENT_API)/v1/signup/resend/verification")!
+        let url = URL(string: "\(Constants.FINANCIAL_MANAGEMENT_API)/v1/signup/resend/verification")!
         
         let body = ["userId" : userId]
         // Decode the response
@@ -76,7 +76,7 @@ class SignUpService {
     }
     
     func verifyCode(body: [String: Any], completion: @escaping (Result<Data?, ErrorResponse>) -> Void) {
-        let url = URL(string: "\(FINANCIAL_MANAGEMENT_API)/v1/signup/verify")!
+        let url = URL(string: "\(Constants.FINANCIAL_MANAGEMENT_API)/v1/signup/verify")!
         
         // Decode the response
         let decoder = JSONDecoder()
