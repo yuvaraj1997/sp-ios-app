@@ -16,6 +16,8 @@ struct ProfileHomepage: View {
     
     @State var isLoading: Bool = false
     
+    @State private var profileUpdatedModal: Bool = false
+    
     @StateObject private var profileService = ProfileService()
     
     @EnvironmentObject var modalControl: ModalControl
@@ -23,13 +25,15 @@ struct ProfileHomepage: View {
     
     let authService = AuthService()
     
+    @State var userProfile: ProfileResponse = ProfileResponse()
     
     func getProfile() {
         self.isLoading.toggle()
         profileService.get() { result in
             switch result {
-            case .success(_):
+            case .success(let profile):
                 self.isLoading.toggle()
+                self.userProfile = profile
             case .failure(let error):
                 print("Error getting profile: \(error)")
                 
@@ -41,17 +45,36 @@ struct ProfileHomepage: View {
                             message += "\(key) : \(value)\n"
                         }
                     } else {
-//                        if (error.error!.code == 3003) {
-//                            self.isLoading.toggle()
-//                            self.signUpStep = .VERIFICATION
-//                            return;
-//                        }
                         message = error.error!.message
                     }
                 }
+                self.isLoading.toggle()
+            }
+        }
+    }
+    
+    func updateProfile() {
+        self.isLoading.toggle()
+        profileService.update(profileResponse: self.userProfile) { result in
+            switch result {
+            case .success(let profile):
+                self.isLoading.toggle()
+                self.userProfile = profile
+                self.profileUpdatedModal.toggle()
+            case .failure(let error):
+                print("Error getting profile: \(error)")
                 
-//                showErrorModal(message: message)
+                var message = ""
                 
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+                        message = error.error!.message
+                    }
+                }
                 self.isLoading.toggle()
             }
         }
@@ -84,17 +107,10 @@ struct ProfileHomepage: View {
         }
     }
     
-    func replaceNullWithEmpty(val: String?) -> String {
-        if (nil == val){
-            return ""
-        }
-        return val!
-    }
-    
     var body: some View {
         VStack(spacing: 5) {
             Avatar(image: "profile_picture", width: 125, height: 125)
-            CustomText(text: replaceNullWithEmpty(val: self.profileService.profileRes?.fullName), size: .h3, bold: true)
+            CustomText(text: Constants.replaceNullWithEmpty(val: self.userProfile.preferredName), size: .h3, bold: true)
             Spacer()
             ScrollView(.vertical, showsIndicators: false) {
                 profileForm
@@ -112,7 +128,15 @@ struct ProfileHomepage: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 20)
         .overlay {
-            ProfilePasswordChangeView()
+            ProfilePasswordChangeView(profileUpdatedModal: self.$profileUpdatedModal)
+            CustomModal(
+                title: "Success",
+                description: "Successfully updated.",
+                type: .ALERT,
+                decisionProceedAction: {
+                },
+                show: self.$profileUpdatedModal
+            )
         }
         .preferredColorScheme(.dark)
         .onAppear {
@@ -132,7 +156,7 @@ struct ProfileHomepage: View {
                 CustomText(text: "Email Address", size: .p1, bold: true)
                     .frame(width: 140, alignment: .leading)
                 Spacer()
-                TextField("", text: .constant(replaceNullWithEmpty(val: self.profileService.profileRes?.email)))
+                TextField("", text: .constant(self.userProfile.email))
                     .font(.system(size: 13))
                     .foregroundColor(.secondaryColor.opacity(0.6))
                     .multilineTextAlignment(.trailing)
@@ -150,7 +174,7 @@ struct ProfileHomepage: View {
                 CustomText(text: "Preferred Name", size: .p1, bold: true)
                     .frame(width: 140, alignment: .leading)
                 Spacer()
-                TextField("", text: .constant(replaceNullWithEmpty(val: self.profileService.profileRes?.fullName)))
+                TextField("", text: self.$userProfile.preferredName)
                     .font(.system(size: 13))
                     .foregroundColor(.secondaryColor)
                     .multilineTextAlignment(.trailing)
@@ -167,7 +191,7 @@ struct ProfileHomepage: View {
                 CustomText(text: "Full Name", size: .p1, bold: true)
                     .frame(width: 140, alignment: .leading)
                 Spacer()
-                TextField("", text: .constant(replaceNullWithEmpty(val: self.profileService.profileRes?.fullName)))
+                TextField("", text: self.$userProfile.fullName)
                     .font(.system(size: 13))
                     .foregroundColor(.secondaryColor)
                     .multilineTextAlignment(.trailing)
@@ -202,7 +226,9 @@ struct ProfileHomepage: View {
                 self.modalControl.showPasswordChangeForm.toggle()
             }
             Spacer()
-            CustomButton(label: "Save Changes", type: .primary, action: {})
+            CustomButton(label: "Save Changes", type: .primary, isLoading: self.isLoading, action: {
+                updateProfile()
+            })
                 .frame(width: self.screenWidth, height: 60)
                 .padding(.vertical, 3)
             CustomButton(label: "Logout", type: .error, isLoading: self.isLoading, action: {
@@ -216,8 +242,11 @@ struct ProfileHomepage: View {
 
 struct ProfileHomepage_Previews: PreviewProvider {
     static var previews: some View {
-        HomepageView()
-            .environmentObject(ModalControl())
-            .environmentObject(AuthModel())
+//        HomepageView()
+//            .environmentObject(ModalControl())
+//            .environmentObject(AuthModel())
+        ProfileHomepage()
+                    .environmentObject(ModalControl())
+                    .environmentObject(AuthModel())
     }
 }

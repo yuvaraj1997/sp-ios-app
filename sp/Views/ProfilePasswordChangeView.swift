@@ -19,10 +19,53 @@ struct ProfilePasswordChangeView: View {
     @State private var newPassword: String = ""
     @State private var confirmNewPassword: String = ""
     
+    @State private var errorMessage: String = ""
+    
+    @State private var isLoading: Bool = false
+    
+    @Binding var profileUpdatedModal: Bool
+    
+    let profileService = ProfileService()
+    
     func isFormComplete() -> Bool {
         
         return self.currentPassword == "" || self.newPassword == "" || self.confirmNewPassword == "" ||
         !self.isNewPasswordCorrect() || !self.isPasswordMatch()
+    }
+    
+    func updatePassword() {
+        self.errorMessage = ""
+        self.isLoading.toggle()
+        let body = ["password": self.currentPassword, "newPassword": self.confirmNewPassword]
+        
+        profileService.updatePassword(body: body) { result in
+            switch result {
+            case .success(_):
+                self.isLoading.toggle()
+                DispatchQueue.main.async {
+                    self.modalControl.showPasswordChangeForm.toggle()
+                    self.profileUpdatedModal.toggle()
+                }
+            case .failure(let error):
+                print("Error getting profile: \(error)")
+                
+                var message = "Something happen. Please try again later."
+                
+                if (error.error != nil) {
+                    if (error.additionalProperties != nil) {
+                        message = ""
+                        for (key, value) in error.additionalProperties! {
+                            message += "\(key) : \(value)\n"
+                        }
+                    } else {
+                        message = error.error!.message
+                    }
+                }
+                
+                self.errorMessage = message
+                self.isLoading.toggle()
+            }
+        }
     }
     
     var body: some View {
@@ -92,9 +135,9 @@ struct ProfilePasswordChangeView: View {
                                     
                                 }
                                 Spacer()
+                                CustomText(text: self.errorMessage, size: .p2, color: .error)
                                 CustomButton(label: "Update Password", type: .primary, isDisabled: self.isFormComplete(), action: {
-                                    
-                                    self.modalControl.showPasswordChangeForm.toggle()
+                                    updatePassword()
                                 })
                                     .frame(height: 50)
                             }
