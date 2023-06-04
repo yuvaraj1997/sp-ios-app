@@ -9,54 +9,53 @@ import SwiftUI
 
 struct TransactionWalletSelectionView: View {
     
-    private let screenWidth: Double = UIScreen.main.bounds.width
-    private let screenHeight: Double = UIScreen.main.bounds.height
-    
+    @EnvironmentObject var walletService: WalletService
+    @EnvironmentObject var modalControl: ModalControl
+
     @Binding var showWalletSelection: Bool
+    @Binding var selectedWallet: GetWalletResponse
+    
+    var selectedValue: ()
     
     var body: some View {
-        ZStack {
-            if (self.showWalletSelection) {
-                Color.bg_color.opacity(0.6).transition(.opacity).ignoresSafeArea()
-                VStack(spacing: 0) {
-                    Rectangle().opacity(0.001).ignoresSafeArea()
-                        .onTapGesture {
-                            self.showWalletSelection.toggle()
-                        }
-                    VStack(alignment: .leading) {
-                        CustomText(text: "Select Wallet", size: .h4)
-                            .padding(.bottom, 10)
+        VStack(alignment: .leading) {
+            CustomText(text: "Select Wallet", size: .h4)
+                .padding(.bottom, 10)
 
-
-                        ScrollView(.vertical, showsIndicators: false) {
-                            VStack {
-                                ForEach((1..<10), id: \.self) { index in
-                                    HStack(alignment: .center) {
-                                        Image(systemName: "creditcard")
-                                            .font(.system(size: 28))
-                                            .foregroundColor(.white)
-                                            .frame(width: 50)
-                                        CustomText(text: "Wallet \(index)", size: .p1)
-                                    }
-                                    .padding(.vertical, 5)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .onTapGesture {
-                                        self.showWalletSelection.toggle()
-                                    }
-                                }
+            if (self.walletService.wallets.count == 0) {
+                CustomText(text: "Ohho. Wallet is empty. Click me to create new wallet.", size: .p1)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onTapGesture {
+                        self.showWalletSelection.toggle()
+                        self.modalControl.showTransactionForm.toggle()
+                        self.modalControl.showCreateWalletView.toggle()
+                    }
+            } else {
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        ForEach((0..<self.walletService.wallets.count), id: \.self) { index in
+                            HStack(alignment: .center) {
+                                Image(systemName: "creditcard")
+                                    .font(.system(size: 28))
+                                    .foregroundColor(.white)
+                                    .frame(width: 50)
+                                CustomText(text: self.walletService.wallets[index].name, size: .p1)
                             }
-                            .padding(.vertical, 10)
+                            .padding(.vertical, 5)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .onTapGesture {
+                                self.selectedWallet = self.walletService.wallets[index]
+                                self.showWalletSelection.toggle()
+                            }
                         }
                     }
-
-                    .frame(maxWidth: .infinity, maxHeight: (self.screenHeight * 30) / 100, alignment: .topLeading)
-                    .padding()
-                    .background(RoundedCorner(radius: 10, corners: [.topLeft, .topRight]).fill(Color.tx_head_view).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+                    .padding(.vertical, 10)
                 }
-                .transition(.move(edge: .bottom))
-                .ignoresSafeArea()
             }
-        }.animation(.easeInOut(duration: 0.8), value: self.showWalletSelection)
+        }
+//        .background(.red)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .padding()
     }
 }
 
@@ -65,5 +64,6 @@ struct TransactionWalletSelectionView_Previews: PreviewProvider {
 //        TransactionWalletSelectionView(showWalletSelection: .constant(true))
         HomepageView()
             .environmentObject(ModalControl())
+            .environmentObject(WalletService())
     }
 }

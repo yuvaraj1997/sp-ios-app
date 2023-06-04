@@ -10,10 +10,13 @@ import SwiftUI
 struct TransactionHomepage: View {
     
     @EnvironmentObject var modalControl: ModalControl
+    @EnvironmentObject var walletService: WalletService
+    @EnvironmentObject var categoryService: CategoryService
     
     private let screenWidth: Double = UIScreen.main.bounds.width
     private let screenHeight: Double = UIScreen.main.bounds.height
     
+//    @ObservedObject var walletService = WalletService()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -35,6 +38,7 @@ struct TransactionHomepage: View {
                             .foregroundColor(.white)
                     }
                     .onTapGesture {
+                        self.categoryService.getTransactionCategories()
                         self.modalControl.showTransactionForm.toggle()
                     }
             }
@@ -51,6 +55,9 @@ struct TransactionHomepage: View {
                 
             }
         }
+        .onAppear {
+            self.walletService.getUserWallets()
+        }
     }
 }
 
@@ -59,5 +66,7 @@ struct TransactionHomepage_Previews: PreviewProvider {
 //        TransactionHomepage()
         HomepageView()
             .environmentObject(ModalControl())
+            .environmentObject(WalletService())
+            .environmentObject(CategoryService())
     }
 }

@@ -34,6 +34,8 @@
 		F23C44B129EB9FE20054982E /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C44B029EB9FE20054982E /* KeyboardHandler.swift */; };
 		F28118DF2A2B30A20043507D /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28118DE2A2B30A20043507D /* ProfileService.swift */; };
 		F28118E12A2B30D90043507D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28118E02A2B30D90043507D /* Constants.swift */; };
+		F28118E32A2B681A0043507D /* WalletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28118E22A2B681A0043507D /* WalletService.swift */; };
+		F28118E52A2C80CD0043507D /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28118E42A2C80CD0043507D /* CategoryService.swift */; };
 		F288B36D2A2787C5009C9A20 /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288B36C2A2787C5009C9A20 /* ForgotPasswordService.swift */; };
 		F288B36F2A278BC0009C9A20 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288B36E2A278BC0009C9A20 /* AuthService.swift */; };
 		F288B3712A278D93009C9A20 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F288B3702A278D93009C9A20 /* TokenManager.swift */; };
@@ -103,6 +105,8 @@
 		F23C44B029EB9FE20054982E /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
 		F28118DE2A2B30A20043507D /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		F28118E02A2B30D90043507D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F28118E22A2B681A0043507D /* WalletService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletService.swift; sourceTree = "<group>"; };
+		F28118E42A2C80CD0043507D /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		F288B36C2A2787C5009C9A20 /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
 		F288B36E2A278BC0009C9A20 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		F288B3702A278D93009C9A20 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
@@ -319,6 +323,8 @@
 				F288B36E2A278BC0009C9A20 /* AuthService.swift */,
 				F288B3702A278D93009C9A20 /* TokenManager.swift */,
 				F28118DE2A2B30A20043507D /* ProfileService.swift */,
+				F28118E22A2B681A0043507D /* WalletService.swift */,
+				F28118E42A2C80CD0043507D /* CategoryService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -522,6 +528,7 @@
 				F23C449629E67CF40054982E /* Formatter.swift in Sources */,
 				F28118DF2A2B30A20043507D /* ProfileService.swift in Sources */,
 				F23C448829E582D10054982E /* View.swift in Sources */,
+				F28118E52A2C80CD0043507D /* CategoryService.swift in Sources */,
 				F23C44A629E84B370054982E /* ProfileHomepage.swift in Sources */,
 				F2FD8E5329E3F9B100670000 /* CustomField.swift in Sources */,
 				F2FD8E4329E3A4D300670000 /* CustomText.swift in Sources */,
@@ -535,6 +542,7 @@
 				F2FD8E5F29E452A400670000 /* Avatar.swift in Sources */,
 				F288B3712A278D93009C9A20 /* TokenManager.swift in Sources */,
 				F2FD8E4629E3C8C000670000 /* ForgotPasswordView.swift in Sources */,
+				F28118E32A2B681A0043507D /* WalletService.swift in Sources */,
 				F23C449A29E78FE00054982E /* NumbersOnlyViewModifier.swift in Sources */,
 				F23C449029E5A4C60054982E /* CardView.swift in Sources */,
 				F2FD8E5629E4036700670000 /* SignUpView.swift in Sources */,

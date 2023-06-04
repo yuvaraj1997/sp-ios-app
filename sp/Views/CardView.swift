@@ -12,13 +12,14 @@ struct CardView: View {
     private let screenWidth: Double = UIScreen.main.bounds.width
     private let screenHeight: Double = UIScreen.main.bounds.height
     
+    var walletDetails: GetWalletResponse = GetWalletResponse()
     var emptyCard: Bool = false
     var action: (() -> Void) /// use closure for callback
     
     var body: some View {
         if !emptyCard {
             VStack(alignment: .leading){
-                CustomText(text: "Bank A", size: .p1, color: .bg_color)
+                CustomText(text: walletDetails.name, size: .p1, color: .bg_color)
                 CustomText(text: "MYR 1,200.00", size: .h4, color: .bg_color, bold: true)
                     .frame(alignment: .center)
                     .frame(maxWidth: .infinity, maxHeight: 95)
@@ -28,6 +29,9 @@ struct CardView: View {
             .background(RoundedRectangle(cornerRadius: 30)
                 .fill(Color.white.gradient)
                 .shadow(color: Color.white, radius: 2))
+            .onTapGesture {
+                self.action()
+            }
         } else {
             VStack(alignment: .leading){
                 CustomText(text: "+", size: .h4, bold: true)
@@ -50,5 +54,6 @@ struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         HomepageView()
             .environmentObject(ModalControl())
+            .environmentObject(WalletService())
     }
 }

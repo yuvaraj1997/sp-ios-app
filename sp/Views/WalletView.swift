@@ -11,7 +11,36 @@ struct WalletView: View {
     
     @State private var index = 0
     
+    @State private var isLoading: Bool = false
+    
     @EnvironmentObject var modalControl: ModalControl
+    @EnvironmentObject var walletService: WalletService
+    
+//    func renderWallets() {
+//        self.isLoading.toggle()
+//        walletService.getUserWallets() { result in
+//            switch result {
+//            case .success(let result):
+//                self.wallets = result.wallets
+//            case .failure(let error):
+//                var message = ""
+//
+//                if (error.error != nil) {
+//                    if (error.additionalProperties != nil) {
+//                        for (key, value) in error.additionalProperties! {
+//                            message += "\(key) : \(value)\n"
+//                        }
+//                    } else {
+//                        message = error.error!.message
+//                    }
+//                }
+//
+////                self.showInvalidCredentialModal.toggle()
+//
+//                self.isLoading.toggle()
+//            }
+//        }
+//    }
     
     var body: some View {
         ZStack {
@@ -20,7 +49,10 @@ struct WalletView: View {
                 Group {
                     //Wallets
                     VStack(alignment: .leading) {
-                        CustomText(text: "Wallets", size: .p1, bold: true)
+                        if self.walletService.isLoading {
+                            CustomText(text: "loading", size: .h2)
+                        }
+                        CustomText(text: "Wallets \(self.walletService.isLoading.description)", size: .p1, bold: true)
                     }
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -29,18 +61,23 @@ struct WalletView: View {
                         Spacer()
                         VStack {
                             TabView(selection: $index) {
-                                         ForEach((0..<3), id: \.self) { index in
-                                             CardView(action: {})
+                                        ForEach((0..<self.walletService.wallets.count), id: \.self) { index in
+                                             CardView(
+                                                walletDetails: self.walletService.wallets[index],
+                                                emptyCard: false,
+                                                action: {
+//                                                    print(self.walletService.wallets[index])
+                                                })
                                          }
                                         CardView(emptyCard: true, action: {
                                             self.modalControl.showCreateWalletView.toggle()
                                         })
-                                        .tag(3)
+                                        .tag(self.walletService.wallets.count)
                                      }
                                      .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                             
                             HStack(spacing: 2) {
-                                ForEach((0..<4), id: \.self) { index in
+                                ForEach((0..<self.walletService.wallets.count + 1), id: \.self) { index in
                                     Circle()
                                         .fill(index == self.index ? Color.secondaryColor : Color.secondaryColor.opacity(0.5))
                                         .frame(width: 10, height: 10)
@@ -97,6 +134,10 @@ struct WalletView: View {
                 }
             }
         }
+        .onAppear {
+//            renderWallets()
+//            self.walletService.getUserWallets()
+        }
         //End Scroll View
     }
 }
@@ -106,5 +147,6 @@ struct WalletView_Previews: PreviewProvider {
 //        WalletView()
         HomepageView()
             .environmentObject(ModalControl())
+            .environmentObject(WalletService())
     }
 }

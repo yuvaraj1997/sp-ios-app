@@ -12,12 +12,16 @@ struct spApp: App {
 
     @StateObject var modalControl = ModalControl()
     @StateObject var authModel = AuthModel()
+    @StateObject var walletService = WalletService()
+    @StateObject var categoryService = CategoryService()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(modalControl)
                 .environmentObject(authModel)
+                .environmentObject(walletService)
+                .environmentObject(categoryService)
         }
     }
 }

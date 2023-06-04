@@ -23,7 +23,12 @@ struct TransactionFormView: View {
     @State private var showTransactionDateSelection = false
     @State private var date = Date.now
     
+    @State private var selectedWallet:GetWalletResponse = GetWalletResponse()
+    @State private var selectedCategory:DropdownOption = DropdownOption()
+    
     @State private var isEditForm = false
+    
+    @State private var isLoading = false
     
     @FocusState private var focusedField: FocusedField?
     
@@ -49,49 +54,74 @@ struct TransactionFormView: View {
         case NOTE_INPUT
     }
     
+    func getFormattedDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let formattedDate = dateFormatter.string(from: self.date)
+        let nowDateFormat = dateFormatter.string(from: Date.now)
+        
+        if (formattedDate == nowDateFormat) {
+            return "Today"
+        }
+        
+        return formattedDate
+    }
+    
+    func isFormInomplete() -> Bool {
+        if(self.transactionAmount == "") {
+            return true
+        }
+        
+        if (Double(self.transactionAmount)! == 0.0) {
+            return true
+        }
+        
+        if (self.selectedWallet.id == "") {
+           return true
+        }
+        
+        if (self.selectedCategory.value == "") {
+           return true
+        }
+        
+        return false
+    }
+    
     var body: some View {
-        ZStack {
-            if (self.modalControl.showTransactionForm) {
-                Color.bg_color.opacity(0.6).transition(.opacity).ignoresSafeArea()
-                VStack(spacing: 0) {
-                    Rectangle().opacity(0.001).ignoresSafeArea()
+        VStack(alignment: .center) {
+                HStack {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.white)
+                        .bold()
                         .onTapGesture {
                             self.modalControl.showTransactionForm.toggle()
                         }
-                    VStack(alignment: .center) {
-                            HStack {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.white)
-                                    .bold()
-                                    .onTapGesture {
-                                        self.modalControl.showTransactionForm.toggle()
-                                    }
-                                    .frame(width: 50)
-                                Spacer()
-                                CustomText(text: self.isEditForm ? "Edit" : "Add a transaction", size: .h4, bold: true)
-                                    .frame(width: 250)
-                                    .multilineTextAlignment(.center)
-                                Spacer()
-                                Image(systemName: self.isEditForm ? "trash.circle.fill" : "")
-                                    .foregroundColor(.white)
-                                    .bold()
-                                    .onTapGesture {
-                                        if (self.isEditForm) {
-                                            //                                            self.showTransactionForm.toggle()
-                                            //Delete
-                                        }
-                                    }
-                                    .frame(width: 50)
+                        .frame(width: 50)
+                    Spacer()
+                    CustomText(text: self.isEditForm ? "Edit" : "Add a transaction", size: .h4, bold: true)
+                        .frame(width: 250)
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                    Image(systemName: self.isEditForm ? "trash.circle.fill" : "")
+                        .foregroundColor(.white)
+                        .bold()
+                        .onTapGesture {
+                            if (self.isEditForm) {
+                                //                                            self.showTransactionForm.toggle()
+                                //Delete
                             }
-                            
-                            TextField("MYR 0", text: self.$transactionAmount, prompt: Text("MYR 0").foregroundColor(.white))
-                                .numbersOnly(self.$transactionAmount, includeDecimal: true)
-                                .focused($focusedField, equals: .dec)
-                                .bold()
-                                .foregroundColor(.white)
-                                .font(.system(size: 32))
-                                .multilineTextAlignment(.center)
-                                .padding(.vertical, 40)
+                        }
+                        .frame(width: 50)
+                }
+                
+                TextField("MYR 0", text: self.$transactionAmount, prompt: Text("MYR 0").foregroundColor(.white))
+                    .numbersOnly(self.$transactionAmount, includeDecimal: true)
+                    .focused($focusedField, equals: .dec)
+                    .bold()
+                    .foregroundColor(.white)
+                    .font(.system(size: 32))
+                    .multilineTextAlignment(.center)
+                    .padding(.vertical, 40)
 //                                .toolbar {
 //                                    ToolbarItem(placement: .keyboard){
 //                                        Spacer()
@@ -105,45 +135,145 @@ struct TransactionFormView: View {
 //                                        }
 //                                    }
 //                                }
-                            
-                            Divider()
-                                .frame(height: 1)
-                                .overlay(Color.white)
-                                .frame(maxWidth: 250)
-                                .padding(.vertical, -40)
-                            
-                            ScrollView(.vertical, showsIndicators: false) {
-                                VStack {
-                                    
-                                    //Wallet Selection
-                                    self.formInput(prependIcon: "creditcard", label: "Wallet", appendIcon: "chevron.right", onClickOpenModal: .WALLET_SELECTION)
-                                    //Category
-                                    self.formInput(prependIcon: "menucard", label: "Category", appendIcon: "chevron.right", onClickOpenModal: .CATEGORY_SELECTION)
-                                    //Calendar
-                                    self.formInput(prependIcon: "calendar", label: "Today", appendIcon: "", onClickOpenModal: .CALENDAR_SELECTION)
-                                    //Note
-                                    self.formInput(prependIcon: "pencil", label: "Write a note", appendIcon: "", onClickOpenModal: .NOTE_INPUT)
-                                    
-                                }.padding(.bottom, keyboardHandler.keyboardHeight)
-                            }
-                            Spacer()
-                            CustomButton(label: "Add Transaction", type: .primary, action: {})
-                                .frame(height: 60)
-                    }
-                    .padding()
-                    .background(RoundedCorner(radius: 20, corners: [.topLeft, .topRight]).fill(Color.bg_color).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
-                    .frame(height: (self.screenHeight * 85) / 100, alignment: .topLeading)
-                    .overlay {
-                        TransactionWalletSelectionView(showWalletSelection: self.$showWalletSelection)
-                        TransactionCategorySelectionView(showCategorySelection: self.$showCategorySelection)
-                        TransactionDateSelectionView(showTransactionDateSelection:  self.$showTransactionDateSelection, date: self.$date)
-
-                    }
+                
+                Divider()
+                    .frame(height: 1)
+                    .overlay(Color.white)
+                    .frame(maxWidth: 250)
+                    .padding(.vertical, -40)
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        
+                        //Wallet Selection
+                        self.formInput(prependIcon: "creditcard",
+                                       label: self.selectedWallet.name != "" ? self.selectedWallet.name : "Select Wallet",
+                                       appendIcon: "chevron.right", onClickOpenModal: .WALLET_SELECTION)
+                        //Category
+                        self.formInput(prependIcon: "menucard",
+                                       label: self.selectedCategory.text != "" ? self.selectedCategory.text : "Select Category",
+                                       appendIcon: "chevron.right", onClickOpenModal: .CATEGORY_SELECTION)
+                        //Calendar
+                        self.formInput(prependIcon: "calendar", label: getFormattedDate(), appendIcon: "", onClickOpenModal: .CALENDAR_SELECTION)
+                        //Note
+                        self.formInput(prependIcon: "pencil", label: "Write a note", appendIcon: "", onClickOpenModal: .NOTE_INPUT)
+                        
+                    }.padding(.bottom, keyboardHandler.keyboardHeight)
                 }
-                .transition(.move(edge: .bottom))
-                .ignoresSafeArea()
-            }
-        }.animation(.easeInOut(duration: 0.8), value: self.modalControl.showTransactionForm)
+                Spacer()
+            CustomButton(label: "Add Transaction", type: .primary, isDisabled: isFormInomplete(), isLoading: self.isLoading, action: {})
+                    .frame(height: 60)
+        }
+        .padding()
+        .sheet(isPresented: self.$showWalletSelection, content: {
+            TransactionWalletSelectionView(showWalletSelection: self.$showWalletSelection, selectedWallet: self.$selectedWallet)
+                .preferredColorScheme(.dark)
+                .presentationDetents([.height(300)])
+        })
+        .sheet(isPresented: self.$showCategorySelection, content: {
+            TransactionCategorySelectionView(showCategorySelection: self.$showCategorySelection, selectedCategory: self.$selectedCategory)
+                .preferredColorScheme(.dark)
+                .presentationDetents([.height(300)])
+        })
+        .sheet(isPresented: self.$showTransactionDateSelection, content: {
+            TransactionDateSelectionView(showTransactionDateSelection:  self.$showTransactionDateSelection, date: self.$date)
+                .preferredColorScheme(.dark)
+                .presentationDetents([.height(450)])
+        })
+//        ZStack {
+//            if (self.modalControl.showTransactionForm) {
+//                Color.bg_color.opacity(0.6).transition(.opacity).ignoresSafeArea()
+//                VStack(spacing: 0) {
+//                    Rectangle().opacity(0.001).ignoresSafeArea()
+//                        .onTapGesture {
+//                            self.modalControl.showTransactionForm.toggle()
+//                        }
+//                    VStack(alignment: .center) {
+//                            HStack {
+//                                Image(systemName: "xmark.circle.fill")
+//                                    .foregroundColor(.white)
+//                                    .bold()
+//                                    .onTapGesture {
+//                                        self.modalControl.showTransactionForm.toggle()
+//                                    }
+//                                    .frame(width: 50)
+//                                Spacer()
+//                                CustomText(text: self.isEditForm ? "Edit" : "Add a transaction", size: .h4, bold: true)
+//                                    .frame(width: 250)
+//                                    .multilineTextAlignment(.center)
+//                                Spacer()
+//                                Image(systemName: self.isEditForm ? "trash.circle.fill" : "")
+//                                    .foregroundColor(.white)
+//                                    .bold()
+//                                    .onTapGesture {
+//                                        if (self.isEditForm) {
+//                                            //                                            self.showTransactionForm.toggle()
+//                                            //Delete
+//                                        }
+//                                    }
+//                                    .frame(width: 50)
+//                            }
+//
+//                            TextField("MYR 0", text: self.$transactionAmount, prompt: Text("MYR 0").foregroundColor(.white))
+//                                .numbersOnly(self.$transactionAmount, includeDecimal: true)
+//                                .focused($focusedField, equals: .dec)
+//                                .bold()
+//                                .foregroundColor(.white)
+//                                .font(.system(size: 32))
+//                                .multilineTextAlignment(.center)
+//                                .padding(.vertical, 40)
+////                                .toolbar {
+////                                    ToolbarItem(placement: .keyboard){
+////                                        Spacer()
+////                                    }
+////                                    ToolbarItem(placement: .keyboard) {
+////                                        Button {
+////                                            self.focusedField = nil
+////                                        } label: {
+////                                            Image(systemName: "keyboard.chevron.compact.down")
+////                                                .foregroundColor(.secondaryColor)
+////                                        }
+////                                    }
+////                                }
+//
+//                            Divider()
+//                                .frame(height: 1)
+//                                .overlay(Color.white)
+//                                .frame(maxWidth: 250)
+//                                .padding(.vertical, -40)
+//
+//                            ScrollView(.vertical, showsIndicators: false) {
+//                                VStack {
+//
+//                                    //Wallet Selection
+//                                    self.formInput(prependIcon: "creditcard", label: "Wallet", appendIcon: "chevron.right", onClickOpenModal: .WALLET_SELECTION)
+//                                    //Category
+//                                    self.formInput(prependIcon: "menucard", label: "Category", appendIcon: "chevron.right", onClickOpenModal: .CATEGORY_SELECTION)
+//                                    //Calendar
+//                                    self.formInput(prependIcon: "calendar", label: "Today", appendIcon: "", onClickOpenModal: .CALENDAR_SELECTION)
+//                                    //Note
+//                                    self.formInput(prependIcon: "pencil", label: "Write a note", appendIcon: "", onClickOpenModal: .NOTE_INPUT)
+//
+//                                }.padding(.bottom, keyboardHandler.keyboardHeight)
+//                            }
+//                            Spacer()
+//                            CustomButton(label: "Add Transaction", type: .primary, action: {})
+//                                .frame(height: 60)
+//                    }
+//                    .padding()
+//                    .background(RoundedCorner(radius: 20, corners: [.topLeft, .topRight]).fill(Color.bg_color).shadow(radius: 20, x: 0, y: 0).mask(Rectangle()))
+//                    .frame(height: (self.screenHeight * 85) / 100, alignment: .topLeading)
+//                    .overlay {
+//                        TransactionWalletSelectionView(showWalletSelection: self.$showWalletSelection)
+//                        TransactionCategorySelectionView(showCategorySelection: self.$showCategorySelection)
+//                        TransactionDateSelectionView(showTransactionDateSelection:  self.$showTransactionDateSelection, date: self.$date)
+//
+//                    }
+//                }
+//                .transition(.move(edge: .bottom))
+//                .ignoresSafeArea()
+//            }
+//        }.animation(.easeInOut(duration: 0.8), value: self.modalControl.showTransactionForm)
     }
     
     func formInput(prependIcon: String, label: String, appendIcon: String, onClickOpenModal: TransactionFormInputType) -> AnyView {
@@ -187,7 +317,7 @@ struct TransactionFormView: View {
                                 }
                             }
                             .scrollContentBackground(.hidden) // <- Hide it
-                            .background(Color.bg_color) // To see this
+                            .preferredColorScheme(.dark)
                             .autocorrectionDisabled()
                             .onTapGesture {
                                 if (self.note == "Write a note") {
@@ -227,6 +357,8 @@ struct TransactionFormView_Previews: PreviewProvider {
     static var previews: some View {
         HomepageView()
             .environmentObject(ModalControl())
+            .environmentObject(WalletService())
+            .environmentObject(CategoryService())
 //        TransactionFormView(showWalletSelection: .constant(true))
     }
 }

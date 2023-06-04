@@ -64,67 +64,31 @@ struct HomepageView: View {
         .animation(.easeInOut(duration: 1), value: self.selectedTab) // 2
         .transition(.slide) // 3
         .overlay {
-            CreateWalletView()
-            TransactionFormView()
-            TransactionFrequencySelection()
+//            CreateWalletView()
+//            TransactionFormView()
+//            TransactionFrequencySelection()
+            CustomModal(
+                title: self.modalControl.notificationModal.title,
+                description: self.modalControl.notificationModal.message,
+                type: .ALERT,
+                decisionProceedAction: {
+                },
+                show: self.$modalControl.notificationModal.show
+            )
         }
+        .sheet(isPresented: self.$modalControl.showCreateWalletView, content: {
+            CreateWalletView()
+                .frame(alignment: .topLeading)
+                .preferredColorScheme(.dark)
+                .presentationDetents([.height(350)])
+        })
+        .sheet(isPresented: self.$modalControl.showTransactionForm, content: {
+            TransactionFormView()
+                .preferredColorScheme(.dark)
+                .presentationDetents([.height(700)])
+        })
         .accentColor(.white)
         .preferredColorScheme(.dark)
-//        VStack(spacing: 0) {
-//            if self.currModel == .TRANSACTION_HOME {
-//                TransactionHomepage()
-//                    .transition(.move(edge: .leading))
-//                    .gesture(DragGesture().onEnded { value in
-//                        let direction = self.detectDirection(value: value)
-//
-//                        if direction == .right {
-//                            self.currModel = .PROFILE_PAGE
-//                        }
-//                    })
-//            } else {
-//                ProfileHomepage()
-//                    .transition(.move(edge: .trailing))
-//                    .gesture(DragGesture().onEnded { value in
-//                        let direction = self.detectDirection(value: value)
-//
-//                        if direction == .left {
-//                            self.currModel = .TRANSACTION_HOME
-//                        }
-//                    })
-//            }
-//            if (!self.modalControl.isAnyModalOpen()) {
-//                HStack(alignment: .center) {
-//                    HStack(alignment: .center) {
-//                        VStack {
-//                            Image(systemName: "house.fill")
-//                                .foregroundColor(self.getColor(expectedModel: .TRANSACTION_HOME))
-//                                .frame(width: 10, height: 10)
-//    //                        CustomText(text: "Home", size: .p1, color: self.getColor(expectedModel: .TRANSACTION_HOME), bold: true)
-//                        }
-//                        .onTapGesture {
-//                            self.currModel = .TRANSACTION_HOME
-//                        }
-//                        Spacer()
-//                        VStack {
-//                            Image(systemName: "person.circle.fill")
-//                                .foregroundColor(self.getColor(expectedModel: .PROFILE_PAGE))
-//                                .frame(width: 10, height: 10)
-//    //                        CustomText(text: "Profile", size: .p1, color: self.getColor(expectedModel: .PROFILE_PAGE), bold: true)
-//                        }
-//                        .onTapGesture {
-//                            self.currModel = .PROFILE_PAGE
-//                        }
-//                    }
-//                    .frame(maxWidth: 250)
-//                }
-//                .padding()
-//                .frame(maxWidth: .infinity, maxHeight: 50)
-//                .background(Color.bg_color)
-//
-//            }
-//        }
-//        .animation(.easeInOut(duration: 0.4), value: self.currModel)
-//        .preferredColorScheme(.dark)
     }
     
     enum HomepageModels{
@@ -158,5 +122,7 @@ struct HomepageView_Previews: PreviewProvider {
     static var previews: some View {
         HomepageView()
             .environmentObject(ModalControl())
+            .environmentObject(WalletService())
+            .environmentObject(CategoryService())
     }
 }

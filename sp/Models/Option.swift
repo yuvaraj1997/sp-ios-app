@@ -19,3 +19,13 @@ struct Option {
      }
     
 }
+
+struct DropdownOption: Decodable {
+    var value: String
+    var text: String
+    
+    init() {
+        value = ""
+        text = ""
+    }
+}
